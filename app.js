@@ -40,17 +40,18 @@ app.post('/logout',control.logout);
 app.post('/reservate',control.reservate);
 app.post('/reservecancel',control.reservecancel);
 app.post('/reservesrch', control.reservesrch);
+app.post('/reserveupd', control.reserveupd);
 
 require('./dbconn.js').connect();
 
-var io = require('socket.io').listen(3300);
+/*var io = require('socket.io').listen(3300);
 
 io.sockets.on('connection', function (socket) {
   socket.emit('news', { hello: 'world' });
   socket.on('my other event', function (data) {
     console.log(data);
   });
-});
+});*/
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
