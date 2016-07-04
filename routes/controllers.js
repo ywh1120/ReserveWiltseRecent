@@ -77,6 +77,7 @@ exports.logout=function(req,res,err){
 
 exports.reservesrch=function(req,res){
 	Reserve.find({ "date" : req.body.todayDate}).exec(function(err, valid) {
+		var nine = [];
 		var ninethree = [];
 		var ten = [];
 		var tenthree = [];
@@ -92,7 +93,9 @@ exports.reservesrch=function(req,res){
 		var sixteenthree = [];
 		var seventeen = [];
 		var seventeenthree = [];
+		var eighteen = [];
 		
+		var nine2 = [];
 		var ninethree2 = [];
 		var ten2 = [];
 		var tenthree2 = [];
@@ -108,6 +111,7 @@ exports.reservesrch=function(req,res){
 		var sixteenthree2 = [];
 		var seventeen2 = [];
 		var seventeenthree2 = [];
+		var eighteen2 = [];
 		if (err){
 			throw err;
 		}
@@ -115,6 +119,18 @@ exports.reservesrch=function(req,res){
 			for(var val in valid){
 				var v = valid[val];
 			    switch(v['time']){
+			    case '09:00':
+			    	if(v['mri_number'] == '1')
+			    		nine = v;
+			    	else if(v['mri_number'] == '2')
+			    		nine2 = v;
+			    	break;
+			    case '09:30':
+			    	if(v['mri_number'] == '1')
+			    		ninethree = v;
+			    	else if(v['mri_number'] == '2')
+			    		ninethree2 = v;
+			    	break;
 			    case '09:30':
 			    	if(v['mri_number'] == '1')
 			    		ninethree = v;
@@ -151,7 +167,7 @@ exports.reservesrch=function(req,res){
 			    	else if(v['mri_number'] == '2')
 			    		twelve2 = v;
 			    	break;
-			    case '13:30':
+			    case '12:30':
 			    	if(v['mri_number'] == '1')
 			    		thiteenthree = v;
 			    	else if(v['mri_number'] == '2')
@@ -205,9 +221,16 @@ exports.reservesrch=function(req,res){
 			    	else if(v['mri_number'] == '2')
 			    		seventeenthree2 = v;
 			    	break;
+			    case '18:00':
+			    	if(v['mri_number'] == '1')
+			    		eighteen = v;
+			    	else if(v['mri_number'] == '2')
+			    		eighteen2 = v;
+			    	break;
 			    }
 			}
-		    res.send({ninethree:ninethree,
+		    res.send({nine:nine,
+		    	ninethree:ninethree,
 		    	ten:ten,
 		    	tenthree:tenthree,
 		    	eleven:eleven,
@@ -222,6 +245,8 @@ exports.reservesrch=function(req,res){
 		    	sixteenthree:sixteenthree, 
 		    	seventeen:seventeen,
 		    	seventeenthree:seventeenthree,
+		    	eighteen:eighteen,
+		    	nine2:nine2,
 		    	ninethree2:ninethree2,
 		    	ten2:ten2,
 		    	tenthree2:tenthree2,
@@ -236,7 +261,8 @@ exports.reservesrch=function(req,res){
 		    	sixteen2:sixteen2,
 		    	sixteenthree2:sixteenthree2, 
 		    	seventeen2:seventeen2,
-		    	seventeenthree2:seventeenthree2
+		    	seventeenthree2:seventeenthree2,
+		    	eighteen2:eighteen2
 		    	});
 		}else{
 			res.send('failed');
@@ -246,181 +272,224 @@ exports.reservesrch=function(req,res){
 };
 
 exports.reservate=function(req,res){
-	var flag = true;
-	var gettime = new Date();
-	if(req.body.resdate == getTimeStamp()){//예약 날짜가 오늘일때
-		switch(req.body.time){//시간대별로 조건문 걸어서 해당시간보다 크면 예약불가
-		case '09:30':
-	    	if(gettime.getHours() > 9){
-	    		flag=false;
-	    	}else if(gettime.getHours() == 9){
-	    		if(gettime.getMinutes() > 10){
-	    			flag=false;
-	    		}
-	    	}
-	    	break;
-	    case '10:00':
-	    	if(gettime.getHours() > 9){
-	    		flag=false;
-	    	}else if(gettime.getHours() == 9){
-	    		if(gettime.getMinutes() > 40){
-	    			flag=false;
-	    		}
-	    	}
-	    	break;
-	    case '10:30':
-	    	if(gettime.getHours() > 10){
-	    		flag=false;
-	    	}else if(gettime.getHours() == 10){
-	    		if(gettime.getMinutes() > 10){
-	    			flag=false;
-	    		}
-	    	}
-	    	break;
-	    case '11:00':
-	    	if(gettime.getHours() > 10){
-	    		flag=false;
-	    	}else if(gettime.getHours() == 10){
-	    		if(gettime.getMinutes() > 40){
-	    			flag=false;
-	    		}
-	    	}
-	    	break;
-	    case '11:30':
-	    	if(gettime.getHours() > 11){
-	    		flag=false;
-	    	}else if(gettime.getHours() == 11){
-	    		if(gettime.getMinutes() > 10){
-	    			flag=false;
-	    		}
-	    	}
-	    	break;
-	    case '12:00':
-	    	if(gettime.getHours() > 11){
-	    		flag=false;
-	    	}else if(gettime.getHours() == 11){
-	    		if(gettime.getMinutes() > 40){
-	    			flag=false;
-	    		}
-	    	}
-	    	break;
-	    case '13:30':
-	    	if(gettime.getHours() > 13){
-	    		flag=false;
-	    	}else if(gettime.getHours() == 13){
-	    		if(gettime.getMinutes() > 10){
-	    			flag=false;
-	    		}
-	    	}
-	    	break;
-	    case '14:00':
-	    	if(gettime.getHours() > 13){
-	    		flag=false;
-	    	}else if(gettime.getHours() == 13){
-	    		if(gettime.getMinutes() > 40){
-	    			flag=false;
-	    		}
-	    	}
-	    	break;
-	    case '14:30':
-	    	if(gettime.getHours() > 14){
-	    		flag=false;
-	    	}else if(gettime.getHours() == 14){
-	    		if(gettime.getMinutes() > 10){
-	    			flag=false;
-	    		}
-	    	}
-	    	break;
-	    case '15:00':
-	    	if(gettime.getHours() > 14){
-	    		flag=false;
-	    	}else if(gettime.getHours() == 14){
-	    		if(gettime.getMinutes() > 40){
-	    			flag=false;
-	    		}
-	    	}
-	    	break;
-	    case '15:30':
-	    	if(gettime.getHours() > 15){
-	    		flag=false;
-	    	}else if(gettime.getHours() == 15){
-	    		if(gettime.getMinutes() > 10){
-	    			flag=false;
-	    		}
-	    	}
-	    	break;
-	    case '16:00':
-	    	if(gettime.getHours() > 15){
-	    		flag=false;
-	    	}else if(gettime.getHours() == 15){
-	    		if(gettime.getMinutes() > 40){
-	    			flag=false;
-	    		}
-	    	}
-	    	break;
-	    case '16:30':
-	    	if(gettime.getHours() > 16){
-	    		flag=false;
-	    	}else if(gettime.getHours() == 16){
-	    		if(gettime.getMinutes() > 10){
-	    			flag=false;
-	    		}
-	    	}
-	    	break;
-	    case '17:00':
-	    	if(gettime.getHours() > 16){
-	    		flag=false;
-	    	}else if(gettime.getHours() == 16){
-	    		if(gettime.getMinutes() > 40){
-	    			flag=false;
-	    		}
-	    	}
-	    	break;
-	    case '17:30':
-	    	if(gettime.getHours() > 17){
-	    		flag=false;
-	    	}else if(gettime.getHours() == 17){
-	    		if(gettime.getMinutes() > 10){
-	    			flag=false;
-	    		}
-	    	}
-	    	break;
-	    
+	var already = false;
+	Reserve.findOne({"time":req.body.time, "date":req.body.resdate, "mri_number":req.body.num}).exec(function(err,data){
+		if(err){
+			throw err;
+		}else{
+			if(data != null){
+				already = true;
+			}
 		}
-	}
-	if(flag){
-		var d = new Date();
-		var reserve = new Reserve({
-			"date" : req.body.resdate,
-			"reservdate" :  getTimeStamp(),
-			"reservid" : req.session.user_id,
-			"time" : req.body.time,
-			"reservtime" : d.getHours()+':'+d.getMinutes(),
-			"patient_number" : req.body.patient_number,
-			"patient_name" : req.body.patient_name,
-			"description" : req.body.description,
-			"part" : req.body.part,
-			"state" : '2',
-			"cancel_state" : '',
-			"cancel_id" : '',
-			"mri_number" : req.body.mrinum
-		});
+	});//예약하는 시점에서 이미 해당 시간대에 예약이 되어 있다면
+	if(already == false){
+		var flag = true;
+		var gettime = new Date();
+		if(req.body.resdate == getTimeStamp()){//예약 날짜가 오늘일때
+			switch(req.body.time){//시간대별로 조건문 걸어서 해당시간보다 크면 예약불가
+				case '09:00':
+		    	if(gettime.getHours() > 8){
+		    		flag=false;
+		    	}else if(gettime.getHours() == 8){
+		    		if(gettime.getMinutes() > 40){
+		    			flag=false;
+		    		}
+		    	}
+		    	break;
+				case '09:30':
+		    	if(gettime.getHours() > 9){
+		    		flag=false;
+		    	}else if(gettime.getHours() == 9){
+		    		if(gettime.getMinutes() > 10){
+		    			flag=false;
+		    		}
+		    	}
+		    	break;
+		    case '10:00':
+		    	if(gettime.getHours() > 9){
+		    		flag=false;
+		    	}else if(gettime.getHours() == 9){
+		    		if(gettime.getMinutes() > 40){
+		    			flag=false;
+		    		}
+		    	}
+		    	break;
+		    case '10:30':
+		    	if(gettime.getHours() > 10){
+		    		flag=false;
+		    	}else if(gettime.getHours() == 10){
+		    		if(gettime.getMinutes() > 10){
+		    			flag=false;
+		    		}
+		    	}
+		    	break;
+		    case '11:00':
+		    	if(gettime.getHours() > 10){
+		    		flag=false;
+		    	}else if(gettime.getHours() == 10){
+		    		if(gettime.getMinutes() > 40){
+		    			flag=false;
+		    		}
+		    	}
+		    	break;
+		    case '11:30':
+		    	if(gettime.getHours() > 11){
+		    		flag=false;
+		    	}else if(gettime.getHours() == 11){
+		    		if(gettime.getMinutes() > 10){
+		    			flag=false;
+		    		}
+		    	}
+		    	break;
+		    case '12:00':
+		    	if(gettime.getHours() > 11){
+		    		flag=false;
+		    	}else if(gettime.getHours() == 11){
+		    		if(gettime.getMinutes() > 40){
+		    			flag=false;
+		    		}
+		    	}
+		    	break;
+		    case '12:30':
+		    	if(gettime.getHours() > 12){
+		    		flag=false;
+		    	}else if(gettime.getHours() == 12){
+		    		if(gettime.getMinutes() > 10){
+		    			flag=false;
+		    		}
+		    	}
+		    	break;
+		    case '14:00':
+		    	if(gettime.getHours() > 13){
+		    		flag=false;
+		    	}else if(gettime.getHours() == 13){
+		    		if(gettime.getMinutes() > 40){
+		    			flag=false;
+		    		}
+		    	}
+		    	break;
+		    case '14:30':
+		    	if(gettime.getHours() > 14){
+		    		flag=false;
+		    	}else if(gettime.getHours() == 14){
+		    		if(gettime.getMinutes() > 10){
+		    			flag=false;
+		    		}
+		    	}
+		    	break;
+		    case '15:00':
+		    	if(gettime.getHours() > 14){
+		    		flag=false;
+		    	}else if(gettime.getHours() == 14){
+		    		if(gettime.getMinutes() > 40){
+		    			flag=false;
+		    		}
+		    	}
+		    	break;
+		    case '15:30':
+		    	if(gettime.getHours() > 15){
+		    		flag=false;
+		    	}else if(gettime.getHours() == 15){
+		    		if(gettime.getMinutes() > 10){
+		    			flag=false;
+		    		}
+		    	}
+		    	break;
+		    case '16:00':
+		    	if(gettime.getHours() > 15){
+		    		flag=false;
+		    	}else if(gettime.getHours() == 15){
+		    		if(gettime.getMinutes() > 40){
+		    			flag=false;
+		    		}
+		    	}
+		    	break;
+		    case '16:30':
+		    	if(gettime.getHours() > 16){
+		    		flag=false;
+		    	}else if(gettime.getHours() == 16){
+		    		if(gettime.getMinutes() > 10){
+		    			flag=false;
+		    		}
+		    	}
+		    	break;
+		    case '17:00':
+		    	if(gettime.getHours() > 16){
+		    		flag=false;
+		    	}else if(gettime.getHours() == 16){
+		    		if(gettime.getMinutes() > 40){
+		    			flag=false;
+		    		}
+		    	}
+		    	break;
+		    case '17:30':
+		    	if(gettime.getHours() > 17){
+		    		flag=false;
+		    	}else if(gettime.getHours() == 17){
+		    		if(gettime.getMinutes() > 10){
+		    			flag=false;
+		    		}
+		    	}
+		    	break;
+		    case '18:00':
+		    	if(gettime.getHours() > 17){
+		    		flag=false;
+		    	}else if(gettime.getHours() == 17){
+		    		if(gettime.getMinutes() > 40){
+		    			flag=false;
+		    		}
+		    	}
+		    	break;
+			}
+		}
+		if(flag){
+			var d = new Date();
+			var reserve = new Reserve({
+				"date" : req.body.resdate,
+				"reservdate" :  getTimeStamp(),
+				"reservid" : req.session.user_id,
+				"time" : req.body.time,
+				"reservtime" : d.getHours()+':'+d.getMinutes(),
+				"patient_number" : req.body.patient_number,
+				"patient_name" : req.body.patient_name,
+				"description" : req.body.description,
+				"part" : req.body.part,
+				"state" : '2',
+				"cancel_state" : '',
+				"cancel_id" : '',
+				"mri_number" : req.body.mrinum
+			});
+			
+			reserve.save(function(err,silence){
 		
-		reserve.save(function(err,silence){
-	
-	    	if(err){
-	    		console.err(err);
-	    		throw err;
-	
-	    		}
-	
-	    	res.send('success');
-	
-	    });
-	}else{
-		res.send('timeout');
-	}
+		    	if(err){
+		    		console.err(err);
+		    		throw err;
 		
+		    		}
+		    	res.send('success');
+		    	/*var io = req.app.get('socketio');
+		    	io.sockets.on('connection',function(socket){
+	
+		    		   socket.emit('toclient',{msg:'success'});
+	
+		    		   socket.on('fromclient',function(data){
+	
+		    		       socket.broadcast.emit('toclient',data); // 자신을 제외하고 다른 클라이언트에게 보냄
+	
+		    		       //socket.emit('toclient',data); // 해당 클라이언트에게만 보냄. 다른 클라이언트에 보낼려면?
+	
+		    		   })
+	
+		    		});*/
+		    	
+		    });
+		}else{
+			res.send('timeout');
+		}
+	}else if(already == true){
+		res.send('already');
+	}
 };
 exports.reserveupd = function(req,res){
 	var d = new Date();
@@ -436,8 +505,15 @@ exports.reserveupd = function(req,res){
 		"part" : req.body.part,
 		"state" : '2',
 		"cancel_state" : '',
-		"cancel_id" : ''}).exec(function(){
-		
+		"cancel_id" : ''}).exec(function(err){
+			if(err){
+	    		console.err(err);
+	    		throw err;
+	
+	    		}
+	    	res.send('success');
+	    	//var io = req.app.get('socketio');
+		    //io.emit('success');
 	});
 };
 exports.reservecancel=function(req,res){

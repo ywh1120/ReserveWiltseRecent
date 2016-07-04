@@ -26,6 +26,7 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
@@ -44,15 +45,17 @@ app.post('/reserveupd', control.reserveupd);
 
 require('./dbconn.js').connect();
 
-/*var io = require('socket.io').listen(3300);
-
-io.sockets.on('connection', function (socket) {
+//var io = require('socket.io').listen(3300);
+//app.set('socketio',io);
+/*io.sockets.on('connection', function (socket) {
   socket.emit('news', { hello: 'world' });
   socket.on('my other event', function (data) {
     console.log(data);
   });
 });*/
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
-});
+var server = http.createServer(app).listen(app.get('port'), '192.168.4.240',function(){
+	  console.log('Express server listening on port ' + app.get('port'));
+	});
+var io = require('socket.io').listen(server);
+app.set('socketio',io);
