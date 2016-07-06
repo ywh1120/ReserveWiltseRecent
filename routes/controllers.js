@@ -169,9 +169,9 @@ exports.reservesrch=function(req,res){
 			    	break;
 			    case '12:30':
 			    	if(v['mri_number'] == '1')
-			    		thiteenthree = v;
+			    		thirteenthree = v;
 			    	else if(v['mri_number'] == '2')
-			    		thiteenthree2 = v;
+			    		thirteenthree2 = v;
 			    	break;
 			    case '14:00':
 			    	if(v['mri_number'] == '1')
@@ -277,8 +277,12 @@ exports.reservate=function(req,res){
 		if(err){
 			throw err;
 		}else{
-			if(data != null){
-				already = true;
+			if(data){
+				for(var val in data){
+					var v = data[val];
+					if(v['time'] == req.body.time)
+						already = true;
+				}
 			}
 		}
 	});//예약하는 시점에서 이미 해당 시간대에 예약이 되어 있다면

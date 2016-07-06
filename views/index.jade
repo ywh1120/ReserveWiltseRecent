@@ -138,6 +138,7 @@ block content
             button(type="button" id="signbut" class="btn btn-success" onclick="Login()") Sign in
           else
             button(type="button" id="signbut" class="btn btn-success" onclick="Logout()") Sign out
+            button(type="button" id="signbut" class="btn btn-success" onclick="Allstop()") Shutdown
         script.
          
           function Login(){
@@ -398,7 +399,7 @@ block content
                  	  $("#thirteenthreelabel").css("cursor","default");
                  	  $("#thirteenthreelabel").html("예약완료");
                    }
-                   else if("#{user_id}" == data['eleventhree']['reservid']){
+                   else if("#{user_id}" == data['thirteenthree']['reservid']){
                    	  $("#thirteenthreelabel").attr('class','label label-info');
                  	  $("#thirteenthreelabel").html("변경");
                  	  $("#thirteenthreelabel").attr("onclick","reserve_update('12:30',$('#patient_number1_n7').val(),$('#patient_name1_n7').val(),$('#desc1_n7 option:selected').val(),$('#part1_n7 option:selected').val(),1)");
