@@ -42,6 +42,7 @@ app.post('/reservate',control.reservate);
 app.post('/reservecancel',control.reservecancel);
 app.post('/reservesrch', control.reservesrch);
 app.post('/reserveupd', control.reserveupd);
+app.post('/noticeinput',control.noticeinput);
 
 require('./dbconn.js').connect();
 

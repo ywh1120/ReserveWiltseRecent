@@ -13,8 +13,6 @@ block content
         div.modal-footer
           button(type="button" class="btn btn-default" data-dismiss="modal") Close
 
-  script.
-    
   nav.navbar.navbar-inverse.navbar-fixed-top
     div.container-fluid
       div.navbar-header
@@ -35,7 +33,7 @@ block content
             input(id="id" name="id" type="text" placeholder="ID" class="form-control" style="margin-right:5px")
           if (user_id == null)
             div.form-group(id="divf2")
-              input(id="pass" name="pass" type="password" placeholder="Password" class="form-control" style="margin-right:5px")
+              input(id="pass" name="pass" type="password" placeholder="Password" class="form-control" onkeyup="if(event.keyCode==13) Login()" style="margin-right:5px")
           else
             div.form-group(id="divf2", style="display:none")
               input(id="pass" name="pass" type="password" placeholder="Password" class="form-control" style="margin-right:5px;")
@@ -44,7 +42,6 @@ block content
           else
             button(type="button" id="signbut" class="btn btn-success" onclick="Logout()") Sign out
         script.
-         
           function Login(){
               $.ajax({
                 url:"/login",
@@ -119,7 +116,7 @@ block content
                    $("#desc1_n0").val(data['nine']['description']).attr("selected", "selected");
                    $("#part1_n0").html(data['nine']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['nine']['reservid']){
+                   if("#{user_id}" != data['nine']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number1_n0').attr("disabled","true");
                  	  $('#patient_name1_n0').attr("disabled","true");
                  	  $("#desc1_n0").attr("disabled","true");
@@ -129,7 +126,7 @@ block content
                  	  $("#ninelabel").css("cursor","default");
                  	  $("#ninelabel").html("예약완료");
                    }
-                   else if("#{user_id}" == data['nine']['reservid'] || "#{lv}" == 1){
+                   else if("#{user_id}" == data['nine']['reservid'] || "#{lv}" == "1"){
                    	  $("#ninelabel").attr('class','label label-info');
                  	  $("#ninelabel").html("변경");
                  	  $("#ninelabel").attr("onclick","reserve_update('09:00',$('#patient_number1_n0').val(),$('#patient_name1_n0').val(),$('#desc1_n0 option:selected').val(),$('#part1_n0 option:selected').val(),1)");
@@ -144,7 +141,7 @@ block content
                    $("#desc1_n1").val(data['ninethree']['description']).attr("selected", "selected");
                    $("#part1_n1").html(data['ninethree']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['ninethree']['reservid']){
+                   if("#{user_id}" != data['ninethree']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number1_n1').attr("disabled","true");
                  	  $('#patient_name1_n1').attr("disabled","true");
                  	  $("#desc1_n1").attr("disabled","true");
@@ -169,7 +166,7 @@ block content
                    $("#desc1_n2").val(data['ten']['description']).attr("selected", "selected");
                    $("#part1_n2").html(data['ten']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['ten']['reservid']){
+                   if("#{user_id}" != data['ten']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number1_n2').attr("disabled","true");
                  	  $('#patient_name1_n2').attr("disabled","true");
                  	  $("#desc1_n2").attr("disabled","true");
@@ -179,7 +176,7 @@ block content
                  	  $("#tenlabel").css("cursor","default");
                  	  $("#tenlabel").html("예약완료");
                    }
-                   else if("#{user_id}" == data['ten']['reservid']){
+                   else if("#{user_id}" == data['ten']['reservid'] || "#{lv}" == "1"){
                    	  $("#tenlabel").attr('class','label label-info');
                  	  $("#tenlabel").html("변경");
                  	  $("#tenlabel").attr("onclick","reserve_update('10:00',$('#patient_number1_n2').val(),$('#patient_name1_n2').val(),$('#desc1_n2 option:selected').val(),$('#part1_n2 option:selected').val(),1)");
@@ -194,7 +191,7 @@ block content
                    $("#desc1_n3").val(data['tenthree']['description']).attr("selected", "selected");
                    $("#part1_n3").html(data['tenthree']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['tenthree']['reservid']){
+                   if("#{user_id}" != data['tenthree']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number1_n3').attr("disabled","true");
                  	  $('#patient_name1_n3').attr("disabled","true");
                  	  $("#desc1_n3").attr("disabled","true");
@@ -204,7 +201,7 @@ block content
                  	  $("#tenthreelabel").css("cursor","default");
                  	  $("#tenthreelabel").html("예약완료");
                    }
-                   else if("#{user_id}" == data['tenthree']['reservid']){
+                   else if("#{user_id}" == data['tenthree']['reservid'] || "#{lv}" == "1"){
                    	  $("#tenthreelabel").attr('class','label label-info');
                  	  $("#tenthreelabel").html("변경");
                  	  $("#tenthreelabel").attr("onclick","reserve_update('10:30',$('#patient_number1_n3').val(),$('#patient_name1_n3').val(),$('#desc1_n3 option:selected').val(),$('#part1_n3 option:selected').val(),1)");
@@ -219,7 +216,7 @@ block content
                    $("#desc1_n4").val(data['eleven']['description']).attr("selected", "selected");
                    $("#part1_n4").html(data['eleven']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['eleven']['reservid']){
+                   if("#{user_id}" != data['eleven']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number1_n4').attr("disabled","true");
                  	  $('#patient_name1_n4').attr("disabled","true");
                  	  $("#desc1_n4").attr("disabled","true");
@@ -229,7 +226,7 @@ block content
                  	  $("#elevenlabel").css("cursor","default");
                  	  $("#elevenlabel").html("예약완료");
                    }
-                   else if("#{user_id}" == data['eleven']['reservid']){
+                   else if("#{user_id}" == data['eleven']['reservid'] || "#{lv}" == "1"){
                    	  $("#elevenlabel").attr('class','label label-info');
                  	  $("#elevenlabel").html("변경");
                  	  $("#elevenlabel").attr("onclick","reserve_update('11:00',$('#patient_number1_n4').val(),$('#patient_name1_n4').val(),$('#desc1_n4 option:selected').val(),$('#part1_n4 option:selected').val(),1)");
@@ -244,7 +241,7 @@ block content
                    $("#desc1_n5").val(data['eleventhree']['description']).attr("selected", "selected");
                    $("#part1_n5").html(data['eleventhree']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['eleventhree']['reservid']){
+                   if("#{user_id}" != data['eleventhree']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number1_n5').attr("disabled","true");
                  	  $('#patient_name1_n5').attr("disabled","true");
                  	  $("#desc1_n5").attr("disabled","true");
@@ -254,7 +251,7 @@ block content
                  	  $("#eleventhreelabel").css("cursor","default");
                  	  $("#eleventhreelabel").html("예약완료");
                    }
-                   else if("#{user_id}" == data['eleventhree']['reservid']){
+                   else if("#{user_id}" == data['eleventhree']['reservid'] || "#{lv}" == "1"){
                    	  $("#eleventhreelabel").attr('class','label label-info');
                  	  $("#eleventhreelabel").html("변경");
                  	  $("#eleventhreelabel").attr("onclick","reserve_update('11:30',$('#patient_number1_n5').val(),$('#patient_name1_n5').val(),$('#desc1_n5 option:selected').val(),$('#part1_n5 option:selected').val(),1)");
@@ -269,7 +266,7 @@ block content
                    $("#desc1_n6").val(data['twelve']['description']).attr("selected", "selected");
                    $("#part1_n6").html(data['twelve']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['twelve']['reservid']){
+                   if("#{user_id}" != data['twelve']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number1_n6').attr("disabled","true");
                  	  $('#patient_name1_n6').attr("disabled","true");
                  	  $("#desc1_n6").attr("disabled","true");
@@ -279,7 +276,7 @@ block content
                  	  $("#twelvelabel").css("cursor","default");
                  	  $("#twelvelabel").html("예약완료");
                    }
-                   else if("#{user_id}" == data['twelve']['reservid']){
+                   else if("#{user_id}" == data['twelve']['reservid'] || "#{lv}" == "1"){
                    	  $("#twelvelabel").attr('class','label label-info');
                  	  $("#twelvelabel").html("변경");
                  	  $("#twelvelabel").attr("onclick","reserve_update('12:00',$('#patient_number1_n6').val(),$('#patient_name1_n6').val(),$('#desc1_n6 option:selected').val(),$('#part1_n6 option:selected').val(),1)");
@@ -294,7 +291,7 @@ block content
                    $("#desc1_n7").val(data['thirteenthree']['description']).attr("selected", "selected");
                    $("#part1_n7").html(data['thirteenthree']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['thirteenthree']['reservid']){
+                   if("#{user_id}" != data['thirteenthree']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number1_n7').attr("disabled","true");
                  	  $('#patient_name1_n7').attr("disabled","true");
                  	  $("#desc1_n7").attr("disabled","true");
@@ -304,7 +301,7 @@ block content
                  	  $("#thirteenthreelabel").css("cursor","default");
                  	  $("#thirteenthreelabel").html("예약완료");
                    }
-                   else if("#{user_id}" == data['thirteenthree']['reservid']){
+                   else if("#{user_id}" == data['thirteenthree']['reservid'] || "#{lv}" == "1"){
                    	  $("#thirteenthreelabel").attr('class','label label-info');
                  	  $("#thirteenthreelabel").html("변경");
                  	  $("#thirteenthreelabel").attr("onclick","reserve_update('12:30',$('#patient_number1_n7').val(),$('#patient_name1_n7').val(),$('#desc1_n7 option:selected').val(),$('#part1_n7 option:selected').val(),1)");
@@ -319,7 +316,7 @@ block content
                    $("#desc1_n8").val(data['fourteen']['description']).attr("selected", "selected");
                    $("#part1_n8").html(data['fourteen']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['fourteen']['reservid']){
+                   if("#{user_id}" != data['fourteen']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number1_n8').attr("disabled","true");
                  	  $('#patient_name1_n8').attr("disabled","true");
                  	  $("#desc1_n8").attr("disabled","true");
@@ -329,7 +326,7 @@ block content
                  	  $("#fourteenlabel").css("cursor","default");
                  	  $("#fourteenlabel").html("예약완료");
                    }
-                   else if("#{user_id}" == data['fourteen']['reservid']){
+                   else if("#{user_id}" == data['fourteen']['reservid'] || "#{lv}" == "1"){
                    	  $("#fourteenlabel").attr('class','label label-info');
                  	  $("#fourteenlabel").html("변경");
                  	  $("#fourteenlabel").attr("onclick","reserve_update('14:00',$('#patient_number1_n8').val(),$('#patient_name1_n8').val(),$('#desc1_n8 option:selected').val(),$('#part1_n8 option:selected').val(),1)");
@@ -344,7 +341,7 @@ block content
                    $("#desc1_n9").val(data['fourteenthree']['description']).attr("selected", "selected");
                    $("#part1_n9").html(data['fourteenthree']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['fourteenthree']['reservid']){
+                   if("#{user_id}" != data['fourteenthree']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number1_n9').attr("disabled","true");
                  	  $('#patient_name1_n9').attr("disabled","true");
                  	  $("#desc1_n9").attr("disabled","true");
@@ -354,7 +351,7 @@ block content
                  	  $("#fourteenthreelabel").css("cursor","default");
                  	  $("#fourteenthreelabel").html("예약완료");
                    }
-                   else if("#{user_id}" == data['fourteenthree']['reservid']){
+                   else if("#{user_id}" == data['fourteenthree']['reservid'] || "#{lv}" == "1"){
                    	  $("#fourteenthreelabel").attr('class','label label-info');
                  	  $("#fourteenthreelabel").html("변경");
                  	  $("#fourteenthreelabel").attr("onclick","reserve_update('14:30',$('#patient_number1_n9').val(),$('#patient_name1_n9').val(),$('#desc1_n9 option:selected').val(),$('#part1_n9 option:selected').val(),1)");
@@ -369,7 +366,7 @@ block content
                    $("#desc1_n10").val(data['fifteen']['description']).attr("selected", "selected");
                    $("#part1_n10").html(data['fifteen']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['fifteen']['reservid']){
+                   if("#{user_id}" != data['fifteen']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number1_n10').attr("disabled","true");
                  	  $('#patient_name1_n10').attr("disabled","true");
                  	  $("#desc1_n10").attr("disabled","true");
@@ -379,7 +376,7 @@ block content
                  	  $("#fifteenlabel").css("cursor","default");
                  	  $("#fifteenlabel").html("예약완료");
                    }
-                   else if("#{user_id}" == data['fifteen']['reservid']){
+                   else if("#{user_id}" == data['fifteen']['reservid'] || "#{lv}" == "1"){
                    	  $("#fifteenlabel").attr('class','label label-info');
                  	  $("#fifteenlabel").html("변경");
                  	  $("#fifteenlabel").attr("onclick","reserve_update('15:00',$('#patient_number1_n10').val(),$('#patient_name1_n10').val(),$('#desc1_n10 option:selected').val(),$('#part1_n10 option:selected').val(),1)");
@@ -394,7 +391,7 @@ block content
                    $("#desc1_n11").val(data['fifteenthree']['description']).attr("selected", "selected");
                    $("#part1_n11").html(data['fifteenthree']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['fifteenthree']['reservid']){
+                   if("#{user_id}" != data['fifteenthree']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number1_n11').attr("disabled","true");
                  	  $('#patient_name1_n11').attr("disabled","true");
                  	  $("#desc1_n11").attr("disabled","true");
@@ -404,7 +401,7 @@ block content
                  	  $("#fifteenthreelabel").css("cursor","default");
                  	  $("#fifteenthreelabel").html("예약완료");
                    }
-                   else if("#{user_id}" == data['fifteenthree']['reservid']){
+                   else if("#{user_id}" == data['fifteenthree']['reservid'] || "#{lv}" == "1"){
                    	  $("#fifteenthreelabel").attr('class','label label-info');
                  	  $("#fifteenthreelabel").html("변경");
                  	  $("#fifteenthreelabel").attr("onclick","reserve_update('15:30',$('#patient_number1_n11').val(),$('#patient_name1_n11').val(),$('#desc1_n11 option:selected').val(),$('#part1_n11 option:selected').val(),1)");
@@ -419,7 +416,7 @@ block content
                    $("#desc1_n12").val(data['sixteen']['description']).attr("selected", "selected");
                    $("#part1_n12").html(data['sixteen']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['sixteen']['reservid']){
+                   if("#{user_id}" != data['sixteen']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number1_n12').attr("disabled","true");
                  	  $('#patient_name1_n12').attr("disabled","true");
                  	  $("#desc1_n12").attr("disabled","true");
@@ -429,7 +426,7 @@ block content
                  	  $("#sixteenlabel").css("cursor","default");
                  	  $("#sixteenlabel").html("예약완료");
                    }
-                   else if("#{user_id}" == data['sixteen']['reservid']){
+                   else if("#{user_id}" == data['sixteen']['reservid'] || "#{lv}" == "1"){
                    	  $("#sixteenlabel").attr('class','label label-info');
                  	  $("#sixteenlabel").html("변경");
                  	  $("#sixteenlabel").attr("onclick","reserve_update('16:00',$('#patient_number1_n12').val(),$('#patient_name1_n12').val(),$('#desc1_n12 option:selected').val(),$('#part1_n12 option:selected').val(),1)");
@@ -444,7 +441,7 @@ block content
                    $("#desc1_n13").val(data['sixteenthree']['description']).attr("selected", "selected");
                    $("#part1_n13").html(data['sixteenthree']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['sixteenthree']['reservid']){
+                   if("#{user_id}" != data['sixteenthree']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number1_n13').attr("disabled","true");
                  	  $('#patient_name1_n13').attr("disabled","true");
                  	  $("#desc1_n13").attr("disabled","true");
@@ -454,7 +451,7 @@ block content
                  	  $("#sixteenthreelabel").css("cursor","default");
                  	  $("#sixteenthreelabel").html("예약완료");
                    }
-                   else if("#{user_id}" == data['sixteenthree']['reservid']){
+                   else if("#{user_id}" == data['sixteenthree']['reservid'] || "#{lv}" == "1"){
                    	  $("#sixteenthreelabel").attr('class','label label-info');
                  	  $("#sixteenthreelabel").html("변경");
                  	  $("#sixteenthreelabel").attr("onclick","reserve_update('16:30',$('#patient_number1_n13').val(),$('#patient_name1_n13').val(),$('#desc1_n13 option:selected').val(),$('#part1_n13 option:selected').val(),1)");
@@ -469,7 +466,7 @@ block content
                    $("#desc1_n14").val(data['seventeen']['description']).attr("selected", "selected");
                    $("#part1_n14").html(data['seventeen']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['seventeen']['reservid']){
+                   if("#{user_id}" != data['seventeen']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number1_n14').attr("disabled","true");
                  	  $('#patient_name1_n14').attr("disabled","true");
                  	  $("#desc1_n14").attr("disabled","true");
@@ -479,7 +476,7 @@ block content
                  	  $("#seventeenlabel").css("cursor","default");
                  	  $("#seventeenlabel").html("예약완료");
                    }
-                   else if("#{user_id}" == data['seventeen']['reservid']){
+                   else if("#{user_id}" == data['seventeen']['reservid'] || "#{lv}" == "1"){
                    	  $("#seventeenlabel").attr('class','label label-info');
                  	  $("#seventeenlabel").html("변경");
                  	  $("#seventeenlabel").attr("onclick","reserve_update('17:00',$('#patient_number1_n14').val(),$('#patient_name1_n14').val(),$('#desc1_n14 option:selected').val(),$('#part1_n14 option:selected').val(),1)");
@@ -494,7 +491,7 @@ block content
                    $("#desc1_n15").val(data['seventeenthree']['description']).attr("selected", "selected");
                    $("#part1_n15").html(data['seventeenthree']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['seventeenthree']['reservid']){
+                   if("#{user_id}" != data['seventeenthree']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number1_n15').attr("disabled","true");
                  	  $('#patient_name1_n15').attr("disabled","true");
                  	  $("#desc1_n15").attr("disabled","true");
@@ -504,7 +501,7 @@ block content
                  	  $("#seventeenthreelabel").css("cursor","default");
                  	  $("#seventeenthreelabel").html("예약완료");
                    }
-                   else if("#{user_id}" == data['seventeenthree']['reservid']){
+                   else if("#{user_id}" == data['seventeenthree']['reservid'] || "#{lv}" == "1"){
                    	  $("#seventeenthreelabel").attr('class','label label-info');
                  	  $("#seventeenthreelabel").html("변경");
                  	  $("#seventeenthreelabel").attr("onclick","reserve_update('17:30',$('#patient_number1_n15').val(),$('#patient_name1_n15').val(),$('#desc1_n15 option:selected').val(),$('#part1_n15 option:selected').val(),1)");
@@ -518,7 +515,7 @@ block content
                    $("#desc1_n16").val(data['eighteen']['description']).attr("selected", "selected");
                    $("#part1_n16").html(data['eighteen']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['eighteen']['reservid']){
+                   if("#{user_id}" != data['eighteen']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number1_n16').attr("disabled","true");
                  	  $('#patient_name1_n16').attr("disabled","true");
                  	  $("#desc1_n16").attr("disabled","true");
@@ -528,7 +525,7 @@ block content
                  	  $("#eighteenlabel").css("cursor","default");
                  	  $("#eighteenlabel").html("예약완료");
                    }
-                   else if("#{user_id}" == data['eighteen']['reservid']){
+                   else if("#{user_id}" == data['eighteen']['reservid'] || "#{lv}" == "1"){
                    	  $("#eighteenlabel").attr('class','label label-info');
                  	  $("#eighteenlabel").html("변경");
                  	  $("#eighteenlabel").attr("onclick","reserve_update('18:00',$('#patient_number1_n16').val(),$('#patient_name1_n16').val(),$('#desc1_n16 option:selected').val(),$('#part1_n16 option:selected').val(),1)");
@@ -544,7 +541,7 @@ block content
                    $("#desc2_n0").val(data['nine2']['description']).attr("selected", "selected");
                    $("#part2_n0").html(data['nine2']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['nine2']['reservid']){
+                   if("#{user_id}" != data['nine2']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number2_n0').attr("disabled","true");
                  	  $('#patient_name2_n0').attr("disabled","true");
                  	  $("#desc2_n0").attr("disabled","true");
@@ -554,7 +551,7 @@ block content
                  	  $("#ninelabel2").css("cursor","default");
                  	  $("#ninelabel2").html("예약완료");
                    }
-                   else if("#{user_id}" == data['nine2']['reservid']){
+                   else if("#{user_id}" == data['nine2']['reservid'] || "#{lv}" == "1"){
                    	  $("#ninelabel2").attr('class','label label-info');
                  	  $("#ninelabel2").html("변경");
                  	  $("#ninelabel2").attr("onclick","reserve_update('09:00',$('#patient_number2_n0').val(),$('#patient_name2_n0').val(),$('#desc2_n0 option:selected').val(),$('#part2_n0 option:selected').val(),2)");
@@ -568,7 +565,7 @@ block content
                    $("#desc2_n1").val(data['ninethree2']['description']).attr("selected", "selected");
                    $("#part2_n1").html(data['ninethree2']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['ninethree2']['reservid']){
+                   if("#{user_id}" != data['ninethree2']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number2_n1').attr("disabled","true");
                  	  $('#patient_name2_n1').attr("disabled","true");
                  	  $("#desc2_n1").attr("disabled","true");
@@ -578,7 +575,7 @@ block content
                  	  $("#ninethreelabel2").css("cursor","default");
                  	  $("#ninethreelabel2").html("예약완료");
                    }
-                   else if("#{user_id}" == data['ninethree2']['reservid']){
+                   else if("#{user_id}" == data['ninethree2']['reservid'] || "#{lv}" == "1"){
                    	  $("#ninethreelabel2").attr('class','label label-info');
                  	  $("#ninethreelabel2").html("변경");
                  	  $("#ninethreelabel2").attr("onclick","reserve_update('09:30',$('#patient_number2_n1').val(),$('#patient_name2_n1').val(),$('#desc2_n1 option:selected').val(),$('#part2_n1 option:selected').val(),2)");
@@ -593,7 +590,7 @@ block content
                    $("#desc2_n2").val(data['ten2']['description']).attr("selected", "selected");
                    $("#part2_n2").html(data['ten2']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['ten2']['reservid']){
+                   if("#{user_id}" != data['ten2']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number2_n2').attr("disabled","true");
                  	  $('#patient_name2_n2').attr("disabled","true");
                  	  $("#desc2_n2").attr("disabled","true");
@@ -603,7 +600,7 @@ block content
                  	  $("#tenlabel2").css("cursor","default");
                  	  $("#tenlabel2").html("예약완료");
                    }
-                   else if("#{user_id}" == data['ten2']['reservid']){
+                   else if("#{user_id}" == data['ten2']['reservid'] || "#{lv}" == "1"){
                    	  $("#tenlabel2").attr('class','label label-info');
                  	  $("#tenlabel2").html("변경");
                  	  $("#tenlabel2").attr("onclick","reserve_update('10:00',$('#patient_number2_n2').val(),$('#patient_name2_n2').val(),$('#desc2_n2 option:selected').val(),$('#part2_n2 option:selected').val(),2)");
@@ -618,7 +615,7 @@ block content
                    $("#desc2_n3").val(data['tenthree2']['description']).attr("selected", "selected");
                    $("#part2_n3").html(data['tenthree2']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['tenthree2']['reservid']){
+                   if("#{user_id}" != data['tenthree2']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number2_n3').attr("disabled","true");
                  	  $('#patient_name2_n3').attr("disabled","true");
                  	  $("#desc2_n3").attr("disabled","true");
@@ -628,7 +625,7 @@ block content
                  	  $("#tenthreelabel2").css("cursor","default");
                  	  $("#tenthreelabel2").html("예약완료");
                    }
-                   else if("#{user_id}" == data['tenthree2']['reservid']){
+                   else if("#{user_id}" == data['tenthree2']['reservid'] || "#{lv}" == "1"){
                    	  $("#tenthreelabel2").attr('class','label label-info');
                  	  $("#tenthreelabel2").html("변경");
                  	  $("#tenthreelabel2").attr("onclick","reserve_update('10:30',$('#patient_number2_n3').val(),$('#patient_name2_n3').val(),$('#desc2_n3 option:selected').val(),$('#part2_n3 option:selected').val(),2)");
@@ -643,7 +640,7 @@ block content
                    $("#desc2_n4").val(data['eleven2']['description']).attr("selected", "selected");
                    $("#part2_n4").html(data['eleven2']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['eleven2']['reservid']){
+                   if("#{user_id}" != data['eleven2']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number2_n4').attr("disabled","true");
                  	  $('#patient_name2_n4').attr("disabled","true");
                  	  $("#desc2_n4").attr("disabled","true");
@@ -653,7 +650,7 @@ block content
                  	  $("#elevenlabel2").css("cursor","default");
                  	  $("#elevenlabel2").html("예약완료");
                    }
-                   else if("#{user_id}" == data['eleven2']['reservid']){
+                   else if("#{user_id}" == data['eleven2']['reservid'] || "#{lv}" == "1"){
                    	  $("#elevenlabel2").attr('class','label label-info');
                  	  $("#elevenlabel2").html("변경");
                  	  $("#elevenlabel2").attr("onclick","reserve_update('11:00',$('#patient_number2_n4').val(),$('#patient_name2_n4').val(),$('#desc2_n4 option:selected').val(),$('#part2_n4 option:selected').val(),2)");
@@ -668,7 +665,7 @@ block content
                    $("#desc2_n5").val(data['eleventhree2']['description']).attr("selected", "selected");
                    $("#part2_n5").html(data['eleventhree2']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['eleventhree2']['reservid']){
+                   if("#{user_id}" != data['eleventhree2']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number2_n5').attr("disabled","true");
                  	  $('#patient_name2_n5').attr("disabled","true");
                  	  $("#desc2_n5").attr("disabled","true");
@@ -678,7 +675,7 @@ block content
                  	  $("#eleventhreelabel2").css("cursor","default");
                  	  $("#eleventhreelabel2").html("예약완료");
                    }
-                   else if("#{user_id}" == data['eleventhree2']['reservid']){
+                   else if("#{user_id}" == data['eleventhree2']['reservid'] || "#{lv}" == "1"){
                    	  $("#eleventhreelabel2").attr('class','label label-info');
                  	  $("#eleventhreelabel2").html("변경");
                  	  $("#eleventhreelabel2").attr("onclick","reserve_update('11:30',$('#patient_number2_n5').val(),$('#patient_name2_n5').val(),$('#desc2_n5 option:selected').val(),$('#part2_n5 option:selected').val(),2)");
@@ -693,7 +690,7 @@ block content
                    $("#desc2_n6").val(data['twelve2']['description']).attr("selected", "selected");
                    $("#part2_n6").html(data['twelve2']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['twelve2']['reservid']){
+                   if("#{user_id}" != data['twelve2']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number2_n6').attr("disabled","true");
                  	  $('#patient_name2_n6').attr("disabled","true");
                  	  $("#desc2_n6").attr("disabled","true");
@@ -703,7 +700,7 @@ block content
                  	  $("#twelvelabel2").css("cursor","default");
                  	  $("#twelvelabel2").html("예약완료");
                    }
-                   else if("#{user_id}" == data['twelve2']['reservid']){
+                   else if("#{user_id}" == data['twelve2']['reservid'] || "#{lv}" == "1"){
                    	  $("#twelvelabel2").attr('class','label label-info');
                  	  $("#twelvelabel2").html("변경");
                  	  $("#twelvelabel2").attr("onclick","reserve_update('12:00',$('#patient_number2_n6').val(),$('#patient_name2_n6').val(),$('#desc2_n6 option:selected').val(),$('#part2_n6 option:selected').val(),2)");
@@ -718,7 +715,7 @@ block content
                    $("#desc2_n7").val(data['thirteenthree2']['description']).attr("selected", "selected");
                    $("#part2_n7").html(data['thirteenthree2']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['thirteenthree2']['reservid']){
+                   if("#{user_id}" != data['thirteenthree2']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number2_n7').attr("disabled","true");
                  	  $('#patient_name2_n7').attr("disabled","true");
                  	  $("#desc2_n7").attr("disabled","true");
@@ -728,7 +725,7 @@ block content
                  	  $("#thirteenthreelabel2").css("cursor","default");
                  	  $("#thirteenthreelabel2").html("예약완료");
                    }
-                   else if("#{user_id}" == data['thirteenthree2']['reservid']){
+                   else if("#{user_id}" == data['thirteenthree2']['reservid'] || "#{lv}" == "1"){
                    	  $("#thirteenthreelabel2").attr('class','label label-info');
                  	  $("#thirteenthreelabel2").html("변경");
                  	  $("#thirteenthreelabel2").attr("onclick","reserve_update('12:30',$('#patient_number2_n1').val(),$('#patient_name2_n1').val(),$('#desc2_n1 option:selected').val(),$('#part2_n1 option:selected').val(),2)");
@@ -743,7 +740,7 @@ block content
                    $("#desc2_n8").val(data['fourteen2']['description']).attr("selected", "selected");
                    $("#part2_n8").html(data['fourteen2']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['fourteen2']['reservid']){
+                   if("#{user_id}" != data['fourteen2']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number2_n8').attr("disabled","true");
                  	  $('#patient_name2_n8').attr("disabled","true");
                  	  $("#desc2_n8").attr("disabled","true");
@@ -753,7 +750,7 @@ block content
                  	  $("#fourteenlabel2").css("cursor","default");
                  	  $("#fourteenlabel2").html("예약완료");
                    }
-                   else if("#{user_id}" == data['fourteen2']['reservid']){
+                   else if("#{user_id}" == data['fourteen2']['reservid'] || "#{lv}" == "1"){
                    	  $("#fourteenlabel2").attr('class','label label-info');
                  	  $("#fourteenlabel2").html("변경");
                  	  $("#fourteenlabel2").attr("onclick","reserve_update('14:00',$('#patient_number2_n8').val(),$('#patient_name2_n8').val(),$('#desc2_n8 option:selected').val(),$('#part2_n8 option:selected').val(),2)");
@@ -768,7 +765,7 @@ block content
                    $("#desc2_n9").val(data['fourteenthree2']['description']).attr("selected", "selected");
                    $("#part2_n9").html(data['fourteenthree2']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['fourteenthree2']['reservid']){
+                   if("#{user_id}" != data['fourteenthree2']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number2_n9').attr("disabled","true");
                  	  $('#patient_name2_n9').attr("disabled","true");
                  	  $("#desc2_n9").attr("disabled","true");
@@ -778,7 +775,7 @@ block content
                  	  $("#fourteenthreelabel2").css("cursor","default");
                  	  $("#fourteenthreelabel2").html("예약완료");
                    }
-                   else if("#{user_id}" == data['fourteenthree2']['reservid']){
+                   else if("#{user_id}" == data['fourteenthree2']['reservid'] || "#{lv}" == "1"){
                    	  $("#fourteenthreelabel2").attr('class','label label-info');
                  	  $("#fourteenthreelabel2").html("변경");
                  	  $("#fourteenthreelabel2").attr("onclick","reserve_update('14:30',$('#patient_number2_n9').val(),$('#patient_name2_n9').val(),$('#desc2_n9 option:selected').val(),$('#part2_n9 option:selected').val(),2)");
@@ -793,7 +790,7 @@ block content
                    $("#desc2_n10").val(data['fifteen2']['description']).attr("selected", "selected");
                    $("#part2_n10").html(data['fifteen2']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['fifteen2']['reservid']){
+                   if("#{user_id}" != data['fifteen2']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number2_n10').attr("disabled","true");
                  	  $('#patient_name2_n10').attr("disabled","true");
                  	  $("#desc2_n10").attr("disabled","true");
@@ -803,7 +800,7 @@ block content
                  	  $("#fifteenlabel2").css("cursor","default");
                  	  $("#fifteenlabel2").html("예약완료");
                    }
-                   else if("#{user_id}" == data['fifteen2']['reservid']){
+                   else if("#{user_id}" == data['fifteen2']['reservid'] || "#{lv}" == "1"){
                    	  $("#fifteenlabel2").attr('class','label label-info');
                  	  $("#fifteenlabel2").html("변경");
                  	  $("#fifteenlabel2").attr("onclick","reserve_update('15:00',$('#patient_number2_n10').val(),$('#patient_name2_n10').val(),$('#desc2_n10 option:selected').val(),$('#part2_n10 option:selected').val(),2)");
@@ -818,7 +815,7 @@ block content
                    $("#desc2_n11").val(data['fifteenthree2']['description']).attr("selected", "selected");
                    $("#part2_n11").html(data['fifteenthree2']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['fifteenthree2']['reservid']){
+                   if("#{user_id}" != data['fifteenthree2']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number2_n11').attr("disabled","true");
                  	  $('#patient_name2_n11').attr("disabled","true");
                  	  $("#desc2_n11").attr("disabled","true");
@@ -828,7 +825,7 @@ block content
                  	  $("#fifteenthreelabel2").css("cursor","default");
                  	  $("#fifteenthreelabel2").html("예약완료");
                    }
-                   else if("#{user_id}" == data['fifteenthree2']['reservid']){
+                   else if("#{user_id}" == data['fifteenthree2']['reservid'] || "#{lv}" == "1"){
                    	  $("#fifteenthreelabel2").attr('class','label label-info');
                  	  $("#fifteenthreelabel2").html("변경");
                  	  $("#fifteenthreelabel2").attr("onclick","reserve_update('15:30',$('#patient_number2_n11').val(),$('#patient_name2_n11').val(),$('#desc2_n11 option:selected').val(),$('#part2_n11 option:selected').val(),2)");
@@ -843,7 +840,7 @@ block content
                    $("#desc2_n12").val(data['sixteen2']['description']).attr("selected", "selected");
                    $("#part2_n12").html(data['sixteen2']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['sixteen2']['reservid']){
+                   if("#{user_id}" != data['sixteen2']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number2_n12').attr("disabled","true");
                  	  $('#patient_name2_n12').attr("disabled","true");
                  	  $("#desc2_n12").attr("disabled","true");
@@ -853,7 +850,7 @@ block content
                  	  $("#sixteenlabel2").css("cursor","default");
                  	  $("#sixteenlabel2").html("예약완료");
                    }
-                   else if("#{user_id}" == data['sixteen2']['reservid']){
+                   else if("#{user_id}" == data['sixteen2']['reservid'] || "#{lv}" == "1"){
                    	  $("#sixteenlabel2").attr('class','label label-info');
                  	  $("#sixteenlabel2").html("변경");
                  	  $("#sixteenlabel2").attr("onclick","reserve_update('16:00',$('#patient_number2_n12').val(),$('#patient_name2_n12').val(),$('#desc2_n12 option:selected').val(),$('#part2_n12 option:selected').val(),2)");
@@ -868,7 +865,7 @@ block content
                    $("#desc2_n13").val(data['sixteenthree2']['description']).attr("selected", "selected");
                    $("#part2_n13").html(data['sixteenthree2']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['sixteenthree2']['reservid']){
+                   if("#{user_id}" != data['sixteenthree2']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number2_n13').attr("disabled","true");
                  	  $('#patient_name2_n13').attr("disabled","true");
                  	  $("#desc2_n13").attr("disabled","true");
@@ -878,7 +875,7 @@ block content
                  	  $("#sixteenthreelabel2").css("cursor","default");
                  	  $("#sixteenthreelabel2").html("예약완료");
                    }
-                   else if("#{user_id}" == data['sixteenthree2']['reservid']){
+                   else if("#{user_id}" == data['sixteenthree2']['reservid'] || "#{lv}" == "1"){
                    	  $("#sixteenthreelabel2").attr('class','label label-info');
                  	  $("#sixteenthreelabel2").html("변경");
                  	  $("#sixteenthreelabel2").attr("onclick","reserve_update('16:30',$('#patient_number2_n13').val(),$('#patient_name2_n13').val(),$('#desc2_n13 option:selected').val(),$('#part2_n13 option:selected').val(),2)");
@@ -893,7 +890,7 @@ block content
                    $("#desc2_n14").val(data['seventeen2']['description']).attr("selected", "selected");
                    $("#part2_n14").html(data['seventeen2']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['seventeen2']['reservid']){
+                   if("#{user_id}" != data['seventeen2']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number2_n14').attr("disabled","true");
                  	  $('#patient_name2_n14').attr("disabled","true");
                  	  $("#desc2_n14").attr("disabled","true");
@@ -903,7 +900,7 @@ block content
                  	  $("#seventeenlabel2").css("cursor","default");
                  	  $("#seventeenlabel2").html("예약완료");
                    }
-                   else if("#{user_id}" == data['seventeen2']['reservid']){
+                   else if("#{user_id}" == data['seventeen2']['reservid'] || "#{lv}" == "1"){
                    	  $("#seventeenlabel2").attr('class','label label-info');
                  	  $("#seventeenlabel2").html("변경");
                  	  $("#seventeenlabel2").attr("onclick","reserve_update('17:00',$('#patient_number2_n14').val(),$('#patient_name2_n14').val(),$('#desc2_n14 option:selected').val(),$('#part2_n14 option:selected').val(),2)");
@@ -918,7 +915,7 @@ block content
                    $("#desc2_n15").val(data['seventeenthree2']['description']).attr("selected", "selected");
                    $("#part2_n15").html(data['seventeenthree2']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['seventeenthree2']['reservid']){
+                   if("#{user_id}" != data['seventeenthree2']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number2_n15').attr("disabled","true");
                  	  $('#patient_name2_n15').attr("disabled","true");
                  	  $("#desc2_n15").attr("disabled","true");
@@ -928,7 +925,7 @@ block content
                  	  $("#seventeenthreelabel2").css("cursor","default");
                  	  $("#seventeenthreelabel2").html("예약완료");
                    }
-                   else if("#{user_id}" == data['seventeenthree2']['reservid']){
+                   else if("#{user_id}" == data['seventeenthree2']['reservid'] || "#{lv}" == "1"){
                    	  $("#seventeenthreelabel2").attr('class','label label-info');
                  	  $("#seventeenthreelabel2").html("변경");
                  	  $("#seventeenthreelabel2").attr("onclick","reserve_update('17:30',$('#patient_number2_n15').val(),$('#patient_name2_n15').val(),$('#desc2_n15 option:selected').val(),$('#part2_n15 option:selected').val(),2)");
@@ -942,7 +939,7 @@ block content
                    $("#desc2_n16").val(data['eighteen2']['description']).attr("selected", "selected");
                    $("#part2_n16").html(data['eighteen2']['reservid']);
                    //alert("#{user_id}");
-                   if("#{user_id}" != data['eighteen']['reservid']){
+                   if("#{user_id}" != data['eighteen']['reservid'] && "#{lv}" != "1"){
                  	  $('#patient_number2_n16').attr("disabled","true");
                  	  $('#patient_name2_n16').attr("disabled","true");
                  	  $("#desc2_n16").attr("disabled","true");
@@ -952,7 +949,7 @@ block content
                  	  $("#eighteenlabel2").css("cursor","default");
                  	  $("#eighteenlabel2").html("예약완료");
                    }
-                   else if("#{user_id}" == data['eighteen2']['reservid']){
+                   else if("#{user_id}" == data['eighteen2']['reservid'] || "#{lv}" == "1"){
                    	  $("#eighteenlabel2").attr('class','label label-info');
                  	  $("#eighteenlabel2").html("변경");
                  	  $("#eighteenlabel2").attr("onclick","reserve_update('18:00',$('#patient_number2_n16').val(),$('#patient_name2_n16').val(),$('#desc2_n16 option:selected').val(),$('#part2_n16 option:selected').val(),2)");
@@ -1064,7 +1061,7 @@ block content
             }});
             }
             socket.on('toclient', function(msg){
-            alert(msg);
+            //alert(msg);
                 $.ajax({
                   url:"/reservesrch",
                   type:"POST",
@@ -1607,9 +1604,7 @@ block content
             //alert($('#datetimepicker12').data('date'));
             });
             $(document).ready(function(){
-            //var socket = io.connect('http://127.0.0.1:3000');
-            //socket.on('toclient',function(data){
-            //alert(data);
+            alert('#{notcon}');
              $.ajax({
                url:"/reservesrch",
                type:"POST",
@@ -1621,8 +1616,26 @@ block content
                });
             //});
             });
+            function notice_input(){
+              $.ajax({
+                url:"/noticeinput",
+                type:"POST",
+                data:"notice="+$('#notice_col').val(),
+                success: function(data){
+                  window.location.reload(true);
+                },
+                error: function(err,data){}
+              });
+            }
         div
-          textarea(rows="20" cols="20")
+        if (lv == 1)
+          div 
+            textarea(rows="20" cols="20", id="notice_col" value="#{notcon}")
+          div 
+            button(onclick="notice_input();") 입력
+        else
+          div
+            span(id="notice_con") #{notcon}
       div.col-xs-6(style="width:525px")
           h2 MRI Time Table #1
           table.table.table-striped

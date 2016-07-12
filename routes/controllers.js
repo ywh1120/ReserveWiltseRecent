@@ -1,6 +1,6 @@
 var Member = require('../models/member.js');
 var Reserve = require('../models/resinfo.js');
-
+var Notice = require('../models/notice.js');
 function getTimeStamp() {
 	  var d = new Date();
 
@@ -523,10 +523,24 @@ exports.reserveupd = function(req,res){
 	});
 };
 exports.reservecancel=function(req,res){
-	Reserve.findOne({"reservid":req.session.user_id, "time":req.body.time, "date":req.body.resdate, "mri_number":req.body.num}).remove().exec(function(err){
+	Reserve.findOne({"time":req.body.time, "date":req.body.resdate, "mri_number":req.body.num}).remove().exec(function(err){
 		if(err)
 			throw err;
 		else
 			res.send('success');
 	});
 };
+exports.noticeinput=function(req,res){
+	var nn = new Notice({"contents":req.body.notice});
+	nn.save(function(err,silence){
+
+    	if(err){
+    		console.err(err);
+    		throw err;
+
+    		}
+
+    	res.send('success');
+
+    });
+}
