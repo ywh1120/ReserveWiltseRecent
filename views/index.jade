@@ -14,102 +14,7 @@ block content
           button(type="button" class="btn btn-default" data-dismiss="modal") Close
 
   script.
-    function reserve(time, p_num, p_name, desc, part, mrinum){
-      if("#{user_id}" == ""){
-        $('#err_msg').empty();
-        $('#err_msg').append('아이디를 확인할 수 없습니다. 로그인이 필요합니다.');
-        $('#alert_box').modal('show');
-        return false;
-            }
-      if(p_num == ""){
-        $('#err_msg').empty();
-        $('#err_msg').append('환자번호를 입력해주세요.');
-        $('#alert_box').modal('show');
-        return false;
-            }
-      if(p_name == ""){
-        $('#err_msg').empty();
-        $('#err_msg').append('환자성명을 입력해주세요');
-        $('#alert_box').modal('show');
-        return false;
-            }
-      if(desc == ""){
-        $('#err_msg').empty();
-        $('#err_msg').append('검사명을 선택하십시오.');
-        $('#alert_box').modal('show');
-        return false;
-            }    
-      if(part == ""){
-        $('#err_msg').empty();
-        $('#err_msg').append('부서명을 선택하십시오.');
-        $('#alert_box').modal('show');
-        return false;
-            }
-      $.ajax({
-        url:"/reservate",
-        type:"POST",
-        data:"resdate="+$('#datetimepicker12').data('date')+"&time="+time+"&patient_number="+p_num+"&patient_name="+p_name+"&description="+desc+"&part="+part+"&mrinum="+mrinum,
-        success: function(data){
-        	if(data == 'success'){
-            window.location.reload(true);
-            		}
-            else if(data == 'timeout'){
-            	$('#err_msg').empty();
-               	$('#err_msg').append('예약가능 시간이 아닙니다. 예약은 20분전까지 가능합니다.');
-              	$('#alert_box').modal('show');
-            }
-            else if(data == 'already'){
-            $('#err_msg').empty();
-               	$('#err_msg').append('이미 예약된 시간입니다.');
-              	$('#alert_box').modal('show');
-              	window.location.reload(true);
-            }
-                 },
-        error: function(err){
-       	  alert('데이터 작성 중 오류가 발생하였습니다.');
-       	  alert(err);
-                }    
-          });
-        }
-    function reserve_cancel(time, id, num){
-      //alert($('#datetimepicker12').data('date'));
-      if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-      $.ajax({
-      	url:"/reservecancel",
-      	type:"POST",
-      	data:"user_id="+id+"&resdate="+$('#datetimepicker12').data('date')+"&time="+time+"&num="+num,
-      	success: function(data){
-      	  if(data == 'success'){
-      		alert('삭제 완료되었습니다.');
-      		window.location.reload(true);
-      	  }
-      	},
-      	error: function(err){
-      	  alert('데이터 작성 중 오류가 발생하였습니다.');
-       	  alert(err);
-      	}
-      });
-      }else{
-      return;
-      }
-    }
-    function reserve_update(time, p_num, p_name, desc, part, mrinum){
-      $.ajax({
-      	url:"/reserveupd",
-      	type:"POST",
-      	data:"resdate="+$('#datetimepicker12').data('date')+"&time="+time+"&patient_number="+p_num+"&patient_name="+p_name+"&description="+desc+"&part="+part+"&mrinum="+mrinum,
-      	success: function(data){
-      	  if(data == 'success'){
-      		alert('변경 완료되었습니다.');
-      		window.location.reload(true);
-      	  }
-      	},
-      	error: function(err){
-      	  alert('데이터 작성 중 오류가 발생하였습니다.');
-       	  alert(err);
-      	}
-      });
-    }
+    
   nav.navbar.navbar-inverse.navbar-fixed-top
     div.container-fluid
       div.navbar-header
@@ -138,7 +43,6 @@ block content
             button(type="button" id="signbut" class="btn btn-success" onclick="Login()") Sign in
           else
             button(type="button" id="signbut" class="btn btn-success" onclick="Logout()") Sign out
-            button(type="button" id="signbut" class="btn btn-success" onclick="Allstop()") Shutdown
         script.
          
           function Login(){
@@ -205,6 +109,7 @@ block content
               div.col-md-8
                 div#datetimepicker12
           script.
+            var socket = io();
             function ajaxdataload(data){//날짜 바뀔때마다 현재 저장된 예약 사항 불러오는 함수
               //mri number1
                  //alert(data['ninethree']['date']);
@@ -224,7 +129,7 @@ block content
                  	  $("#ninelabel").css("cursor","default");
                  	  $("#ninelabel").html("예약완료");
                    }
-                   else if("#{user_id}" == data['nine']['reservid']){
+                   else if("#{user_id}" == data['nine']['reservid'] || "#{lv}" == 1){
                    	  $("#ninelabel").attr('class','label label-info');
                  	  $("#ninelabel").html("변경");
                  	  $("#ninelabel").attr("onclick","reserve_update('09:00',$('#patient_number1_n0').val(),$('#patient_name1_n0').val(),$('#desc1_n0 option:selected').val(),$('#part1_n0 option:selected').val(),1)");
@@ -249,7 +154,7 @@ block content
                  	  $("#ninethreelabel").css("cursor","default");
                  	  $("#ninethreelabel").html("예약완료");
                    }
-                   else if("#{user_id}" == data['ninethree']['reservid']){
+                   else if("#{user_id}" == data['ninethree']['reservid'] || "#{lv}" == "1"){
                    	  $("#ninethreelabel").attr('class','label label-info');
                  	  $("#ninethreelabel").html("변경");
                  	  $("#ninethreelabel").attr("onclick","reserve_update('09:30',$('#patient_number1_n1').val(),$('#patient_name1_n1').val(),$('#desc1_n1 option:selected').val(),$('#part1_n1 option:selected').val(),1)");
@@ -1056,6 +961,120 @@ block content
                    }
                  }
             }
+            function reserve(time, p_num, p_name, desc, part, mrinum){
+              if("#{user_id}" == ""){
+                  $('#err_msg').empty();
+                  $('#err_msg').append('아이디를 확인할 수 없습니다. 로그인이 필요합니다.');
+                  $('#alert_box').modal('show');
+                  return false;
+              }
+              if(p_num == ""){
+                 $('#err_msg').empty();
+                 $('#err_msg').append('환자번호를 입력해주세요.');
+                 $('#alert_box').modal('show');
+                 return false;
+              }
+              if(p_name == ""){
+                 $('#err_msg').empty();
+                 $('#err_msg').append('환자성명을 입력해주세요');
+                 $('#alert_box').modal('show');
+                 return false;
+              }
+              if(desc == ""){
+                 $('#err_msg').empty();
+                 $('#err_msg').append('검사명을 선택하십시오.');
+                 $('#alert_box').modal('show');
+                 return false;
+              }    
+              if(part == ""){
+                 $('#err_msg').empty();
+                 $('#err_msg').append('부서명을 선택하십시오.');
+                 $('#alert_box').modal('show');
+                 return false;
+              }
+              $.ajax({
+                url:"/reservate",
+                type:"POST",
+                data:"resdate="+$('#datetimepicker12').data('date')+"&time="+time+"&patient_number="+p_num+"&patient_name="+p_name+"&description="+desc+"&part="+part+"&mrinum="+mrinum,
+                success: function(data){
+                  if(data == 'success'){
+                    
+                    socket.emit('toclient',{msg:'ins'});
+                    window.location.reload(true);
+            	  }
+                  else if(data == 'timeout'){
+            	    $('#err_msg').empty();
+               	    $('#err_msg').append('예약가능 시간이 아닙니다. 예약은 20분전까지 가능합니다.');
+              	    $('#alert_box').modal('show');
+                  }
+                  else if(data == 'already'){
+                    $('#err_msg').empty();
+               	    $('#err_msg').append('이미 예약된 시간입니다.');
+              	    $('#alert_box').modal('show');
+              	    window.location.reload(true);
+                  }
+                 },
+                error: function(err){
+                  alert('데이터 작성 중 오류가 발생하였습니다.');
+                  alert(err);
+                  }    
+              });
+            }
+            
+            function reserve_cancel(time, id, num){
+            //alert($('#datetimepicker12').data('date'));
+            if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+            $.ajax({
+            url:"/reservecancel",
+            type:"POST",
+            data:"user_id="+id+"&resdate="+$('#datetimepicker12').data('date')+"&time="+time+"&num="+num,
+            success: function(data){
+              if(data == 'success'){
+              socket.emit('toclient',{msg:'del'});
+              alert('삭제 완료되었습니다.');
+              
+              window.location.reload(true);
+              }
+            },
+            error: function(err){
+              alert('데이터 작성 중 오류가 발생하였습니다.');
+              alert(err);
+            }
+            });
+            }else{
+              return;
+            }
+            }
+            function reserve_update(time, p_num, p_name, desc, part, mrinum){
+            $.ajax({
+            url:"/reserveupd",
+            type:"POST",
+            data:"resdate="+$('#datetimepicker12').data('date')+"&time="+time+"&patient_number="+p_num+"&patient_name="+p_name+"&description="+desc+"&part="+part+"&mrinum="+mrinum,
+            success: function(data){
+              if(data == 'success'){
+                socket.emit('toclient',{msg:'upd'});
+                alert('변경 완료되었습니다.');
+                
+                window.location.reload(true);
+              }
+            },
+            error: function(err){
+              alert('데이터 작성 중 오류가 발생하였습니다.');
+              alert(err);
+            }});
+            }
+            socket.on('toclient', function(msg){
+            alert(msg);
+                $.ajax({
+                  url:"/reservesrch",
+                  type:"POST",
+                  data:"todayDate="+$('#datetimepicker12').data('date'),
+                  success: function(data){
+                    ajaxdataload(data);
+                  },
+                  error: function(err,data){}
+                  });
+            });
             $(function () {
             $('#datetimepicker12').datetimepicker({
                   inline: true,
@@ -1588,8 +1607,9 @@ block content
             //alert($('#datetimepicker12').data('date'));
             });
             $(document).ready(function(){
-            //var socket = io.connect('http://192.168.4.240:3000');
-            //socket.on('toclient',function(data){});
+            //var socket = io.connect('http://127.0.0.1:3000');
+            //socket.on('toclient',function(data){
+            //alert(data);
              $.ajax({
                url:"/reservesrch",
                type:"POST",
@@ -1599,6 +1619,7 @@ block content
                },
                error: function(err,data){}
                });
+            //});
             });
         div
           textarea(rows="20" cols="20")

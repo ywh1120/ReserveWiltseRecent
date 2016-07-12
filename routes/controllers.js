@@ -272,183 +272,170 @@ exports.reservesrch=function(req,res){
 };
 
 exports.reservate=function(req,res){
-	var already = false;
-	Reserve.findOne({"time":req.body.time, "date":req.body.resdate, "mri_number":req.body.num}).exec(function(err,data){
-		if(err){
-			throw err;
-		}else{
-			if(data){
-				for(var val in data){
-					var v = data[val];
-					if(v['time'] == req.body.time)
-						already = true;
-				}
-			}
-		}
-	});//예약하는 시점에서 이미 해당 시간대에 예약이 되어 있다면
-	if(already == false){
 		var flag = true;
 		var gettime = new Date();
-		if(req.body.resdate == getTimeStamp()){//예약 날짜가 오늘일때
-			switch(req.body.time){//시간대별로 조건문 걸어서 해당시간보다 크면 예약불가
-				case '09:00':
-		    	if(gettime.getHours() > 8){
-		    		flag=false;
-		    	}else if(gettime.getHours() == 8){
-		    		if(gettime.getMinutes() > 40){
-		    			flag=false;
-		    		}
-		    	}
-		    	break;
-				case '09:30':
-		    	if(gettime.getHours() > 9){
-		    		flag=false;
-		    	}else if(gettime.getHours() == 9){
-		    		if(gettime.getMinutes() > 10){
-		    			flag=false;
-		    		}
-		    	}
-		    	break;
-		    case '10:00':
-		    	if(gettime.getHours() > 9){
-		    		flag=false;
-		    	}else if(gettime.getHours() == 9){
-		    		if(gettime.getMinutes() > 40){
-		    			flag=false;
-		    		}
-		    	}
-		    	break;
-		    case '10:30':
-		    	if(gettime.getHours() > 10){
-		    		flag=false;
-		    	}else if(gettime.getHours() == 10){
-		    		if(gettime.getMinutes() > 10){
-		    			flag=false;
-		    		}
-		    	}
-		    	break;
-		    case '11:00':
-		    	if(gettime.getHours() > 10){
-		    		flag=false;
-		    	}else if(gettime.getHours() == 10){
-		    		if(gettime.getMinutes() > 40){
-		    			flag=false;
-		    		}
-		    	}
-		    	break;
-		    case '11:30':
-		    	if(gettime.getHours() > 11){
-		    		flag=false;
-		    	}else if(gettime.getHours() == 11){
-		    		if(gettime.getMinutes() > 10){
-		    			flag=false;
-		    		}
-		    	}
-		    	break;
-		    case '12:00':
-		    	if(gettime.getHours() > 11){
-		    		flag=false;
-		    	}else if(gettime.getHours() == 11){
-		    		if(gettime.getMinutes() > 40){
-		    			flag=false;
-		    		}
-		    	}
-		    	break;
-		    case '12:30':
-		    	if(gettime.getHours() > 12){
-		    		flag=false;
-		    	}else if(gettime.getHours() == 12){
-		    		if(gettime.getMinutes() > 10){
-		    			flag=false;
-		    		}
-		    	}
-		    	break;
-		    case '14:00':
-		    	if(gettime.getHours() > 13){
-		    		flag=false;
-		    	}else if(gettime.getHours() == 13){
-		    		if(gettime.getMinutes() > 40){
-		    			flag=false;
-		    		}
-		    	}
-		    	break;
-		    case '14:30':
-		    	if(gettime.getHours() > 14){
-		    		flag=false;
-		    	}else if(gettime.getHours() == 14){
-		    		if(gettime.getMinutes() > 10){
-		    			flag=false;
-		    		}
-		    	}
-		    	break;
-		    case '15:00':
-		    	if(gettime.getHours() > 14){
-		    		flag=false;
-		    	}else if(gettime.getHours() == 14){
-		    		if(gettime.getMinutes() > 40){
-		    			flag=false;
-		    		}
-		    	}
-		    	break;
-		    case '15:30':
-		    	if(gettime.getHours() > 15){
-		    		flag=false;
-		    	}else if(gettime.getHours() == 15){
-		    		if(gettime.getMinutes() > 10){
-		    			flag=false;
-		    		}
-		    	}
-		    	break;
-		    case '16:00':
-		    	if(gettime.getHours() > 15){
-		    		flag=false;
-		    	}else if(gettime.getHours() == 15){
-		    		if(gettime.getMinutes() > 40){
-		    			flag=false;
-		    		}
-		    	}
-		    	break;
-		    case '16:30':
-		    	if(gettime.getHours() > 16){
-		    		flag=false;
-		    	}else if(gettime.getHours() == 16){
-		    		if(gettime.getMinutes() > 10){
-		    			flag=false;
-		    		}
-		    	}
-		    	break;
-		    case '17:00':
-		    	if(gettime.getHours() > 16){
-		    		flag=false;
-		    	}else if(gettime.getHours() == 16){
-		    		if(gettime.getMinutes() > 40){
-		    			flag=false;
-		    		}
-		    	}
-		    	break;
-		    case '17:30':
-		    	if(gettime.getHours() > 17){
-		    		flag=false;
-		    	}else if(gettime.getHours() == 17){
-		    		if(gettime.getMinutes() > 10){
-		    			flag=false;
-		    		}
-		    	}
-		    	break;
-		    case '18:00':
-		    	if(gettime.getHours() > 17){
-		    		flag=false;
-		    	}else if(gettime.getHours() == 17){
-		    		if(gettime.getMinutes() > 40){
-		    			flag=false;
-		    		}
-		    	}
-		    	break;
+		if(req.session.user_id != 'mri'){
+			if(req.body.resdate == getTimeStamp()){//예약 날짜가 오늘일때
+				switch(req.body.time){//시간대별로 조건문 걸어서 해당시간보다 크면 예약불가
+					case '09:00':
+			    	if(gettime.getHours() > 8){
+			    		flag=false;
+			    	}else if(gettime.getHours() == 8){
+			    		if(gettime.getMinutes() > 40){
+			    			flag=false;
+			    		}
+			    	}
+			    	break;
+					case '09:30':
+			    	if(gettime.getHours() > 9){
+			    		flag=false;
+			    	}else if(gettime.getHours() == 9){
+			    		if(gettime.getMinutes() > 10){
+			    			flag=false;
+			    		}
+			    	}
+			    	break;
+			    case '10:00':
+			    	if(gettime.getHours() > 9){
+			    		flag=false;
+			    	}else if(gettime.getHours() == 9){
+			    		if(gettime.getMinutes() > 40){
+			    			flag=false;
+			    		}
+			    	}
+			    	break;
+			    case '10:30':
+			    	if(gettime.getHours() > 10){
+			    		flag=false;
+			    	}else if(gettime.getHours() == 10){
+			    		if(gettime.getMinutes() > 10){
+			    			flag=false;
+			    		}
+			    	}
+			    	break;
+			    case '11:00':
+			    	if(gettime.getHours() > 10){
+			    		flag=false;
+			    	}else if(gettime.getHours() == 10){
+			    		if(gettime.getMinutes() > 40){
+			    			flag=false;
+			    		}
+			    	}
+			    	break;
+			    case '11:30':
+			    	if(gettime.getHours() > 11){
+			    		flag=false;
+			    	}else if(gettime.getHours() == 11){
+			    		if(gettime.getMinutes() > 10){
+			    			flag=false;
+			    		}
+			    	}
+			    	break;
+			    case '12:00':
+			    	if(gettime.getHours() > 11){
+			    		flag=false;
+			    	}else if(gettime.getHours() == 11){
+			    		if(gettime.getMinutes() > 40){
+			    			flag=false;
+			    		}
+			    	}
+			    	break;
+			    case '12:30':
+			    	if(gettime.getHours() > 12){
+			    		flag=false;
+			    	}else if(gettime.getHours() == 12){
+			    		if(gettime.getMinutes() > 10){
+			    			flag=false;
+			    		}
+			    	}
+			    	break;
+			    case '14:00':
+			    	if(gettime.getHours() > 13){
+			    		flag=false;
+			    	}else if(gettime.getHours() == 13){
+			    		if(gettime.getMinutes() > 40){
+			    			flag=false;
+			    		}
+			    	}
+			    	break;
+			    case '14:30':
+			    	if(gettime.getHours() > 14){
+			    		flag=false;
+			    	}else if(gettime.getHours() == 14){
+			    		if(gettime.getMinutes() > 10){
+			    			flag=false;
+			    		}
+			    	}
+			    	break;
+			    case '15:00':
+			    	if(gettime.getHours() > 14){
+			    		flag=false;
+			    	}else if(gettime.getHours() == 14){
+			    		if(gettime.getMinutes() > 40){
+			    			flag=false;
+			    		}
+			    	}
+			    	break;
+			    case '15:30':
+			    	if(gettime.getHours() > 15){
+			    		flag=false;
+			    	}else if(gettime.getHours() == 15){
+			    		if(gettime.getMinutes() > 10){
+			    			flag=false;
+			    		}
+			    	}
+			    	break;
+			    case '16:00':
+			    	if(gettime.getHours() > 15){
+			    		flag=false;
+			    	}else if(gettime.getHours() == 15){
+			    		if(gettime.getMinutes() > 40){
+			    			flag=false;
+			    		}
+			    	}
+			    	break;
+			    case '16:30':
+			    	if(gettime.getHours() > 16){
+			    		flag=false;
+			    	}else if(gettime.getHours() == 16){
+			    		if(gettime.getMinutes() > 10){
+			    			flag=false;
+			    		}
+			    	}
+			    	break;
+			    case '17:00':
+			    	if(gettime.getHours() > 16){
+			    		flag=false;
+			    	}else if(gettime.getHours() == 16){
+			    		if(gettime.getMinutes() > 40){
+			    			flag=false;
+			    		}
+			    	}
+			    	break;
+			    case '17:30':
+			    	if(gettime.getHours() > 17){
+			    		flag=false;
+			    	}else if(gettime.getHours() == 17){
+			    		if(gettime.getMinutes() > 10){
+			    			flag=false;
+			    		}
+			    	}
+			    	break;
+			    case '18:00':
+			    	if(gettime.getHours() > 17){
+			    		flag=false;
+			    	}else if(gettime.getHours() == 17){
+			    		if(gettime.getMinutes() > 40){
+			    			flag=false;
+			    		}
+			    	}
+			    	break;
+				}
 			}
 		}
 		if(flag){
 			var d = new Date();
-			var reserve = new Reserve({
+			/*var reserve = new Reserve({
 				"date" : req.body.resdate,
 				"reservdate" :  getTimeStamp(),
 				"reservid" : req.session.user_id,
@@ -462,9 +449,25 @@ exports.reservate=function(req,res){
 				"cancel_state" : '',
 				"cancel_id" : '',
 				"mri_number" : req.body.mrinum
-			});
+			});*/
 			
-			reserve.save(function(err,silence){
+			Reserve.findOneAndUpdate({"time":req.body.time, "date":req.body.resdate, "mri_number":req.body.num},
+				{
+					"date" : req.body.resdate,
+					"reservdate" :  getTimeStamp(),
+					"reservid" : req.session.user_id,
+					"time" : req.body.time,
+					"reservtime" : d.getHours()+':'+d.getMinutes(),
+					"patient_number" : req.body.patient_number,
+					"patient_name" : req.body.patient_name,
+					"description" : req.body.description,
+					"part" : req.body.part,
+					"state" : '2',
+					"cancel_state" : '',
+					"cancel_id" : '',
+					"mri_number" : req.body.mrinum
+				}
+			,{upsert:true},function(err,silence){
 		
 		    	if(err){
 		    		console.err(err);
@@ -485,15 +488,14 @@ exports.reservate=function(req,res){
 	
 		    		   })
 	
-		    		});*/
+		    		});
+		    		*/
 		    	
 		    });
 		}else{
 			res.send('timeout');
 		}
-	}else if(already == true){
-		res.send('already');
-	}
+	
 };
 exports.reserveupd = function(req,res){
 	var d = new Date();
