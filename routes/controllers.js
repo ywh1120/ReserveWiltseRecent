@@ -531,7 +531,7 @@ exports.reservecancel=function(req,res){
 	});
 };
 exports.noticeinput=function(req,res){
-	var nn = new Notice({"contents":req.body.notice});
+	var nn = new Notice({"contents":req.body.notice,"date":req.body.date});
 	nn.save(function(err,silence){
 
     	if(err){
@@ -543,4 +543,14 @@ exports.noticeinput=function(req,res){
     	res.send('success');
 
     });
-}
+};
+exports.noticeload=function(req,res){
+	Notice.findOne({"date":req.body.date}).select('contents').exec(function(err,val){
+		if(err){
+			throw err;
+		}else{ 
+			//req.session.not = val['contents'];
+			res.send(val);
+		}
+	});
+};
