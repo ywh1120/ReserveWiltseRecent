@@ -1603,6 +1603,16 @@ block content
                },
                error: function(err,data){}
                }); 
+              $.ajax({
+               url:"/noticeload",
+               type:"POST",
+               data:"date="+$('#datetimepicker12').data('date'),
+               success: function(data){
+                 $('#notice_col').val(data['contents']);
+                 $('#notice_con').html(data['contents']);
+               },
+               error: function(err,data){}
+               });
             });
             //alert($('#datetimepicker12').data('date'));
             });

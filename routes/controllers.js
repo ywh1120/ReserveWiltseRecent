@@ -467,7 +467,7 @@ exports.reservate=function(req,res){
 					"cancel_id" : '',
 					"mri_number" : req.body.mrinum
 				}
-			,{upsert:true},function(err,silence){
+			,{"upsert":true,"new":true},function(err,silence){
 		
 		    	if(err){
 		    		console.err(err);
@@ -531,8 +531,8 @@ exports.reservecancel=function(req,res){
 	});
 };
 exports.noticeinput=function(req,res){
-	var nn = new Notice({"contents":req.body.notice,"date":req.body.date});
-	nn.save(function(err,silence){
+	//var nn = new Notice({"contents":req.body.notice,"date":req.body.date});
+	Notice.findOneAndUpdate({"date":req.body.date},{"contents":req.body.notice,"date":req.body.date},{"new":true,"upsert":true},function(err,silence){
 
     	if(err){
     		console.err(err);
