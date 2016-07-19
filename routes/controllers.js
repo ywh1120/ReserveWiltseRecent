@@ -545,7 +545,7 @@ exports.noticeinput=function(req,res){
     });
 };
 exports.noticeload=function(req,res){
-	Notice.findOne({"date":req.body.date}).select('contents').exec(function(err,val){
+	Notice.findOne().sort("-date").select('contents').exec(function(err,val){
 		if(err){
 			throw err;
 		}else{ 
