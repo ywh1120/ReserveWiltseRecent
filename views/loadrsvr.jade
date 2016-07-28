@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  - var vv = #{val}
+  - for(var v in vv)
+    div
+      label #{v}
+      br
+      input(type="text", id="pass",name="pass" placeholder="pass")
+      br
+      input(type="text", id="lv",name="lv",placeholder="lv")
+      br
+      button(type="button" onclick="signup()") submit

@@ -44,6 +44,7 @@ app.post('/reservesrch', control.reservesrch);
 app.post('/reserveupd', control.reserveupd);
 app.post('/noticeinput',control.noticeinput);
 app.post('/noticeload',control.noticeload);
+app.get('/loadrsvr',control.loadrsvr);
 require('./dbconn.js').connect();
 
 var server = http.createServer(app).listen(app.get('port'),function(){

@@ -107,7 +107,7 @@ block content
                 div#datetimepicker12
           script.
             var socket = io();
-            function initialdata(){//데이터 초기화 해주는 함수
+            function initialdata(){//각 날짜마다 입력된 데이터 초기화 해주는 함수
             //mri-number1
               $('#patient_number1_n0').val("");
               $('#patient_name1_n0').val("");
@@ -1511,7 +1511,7 @@ block content
                   if(data == 'success'){
                     
                     socket.emit('toclient',{msg:'ins'});
-                    window.location.reload(true);
+                    //window.location.reload(true);
             	  }
                   else if(data == 'timeout'){
             	    $('#err_msg').empty();
@@ -1522,7 +1522,7 @@ block content
                     $('#err_msg').empty();
                	    $('#err_msg').append('이미 예약된 시간입니다.');
               	    $('#alert_box').modal('show');
-              	    window.location.reload(true);
+              	    //window.location.reload(true);
                   }
                  },
                 error: function(err){
@@ -1650,12 +1650,17 @@ block content
                 error: function(err,data){}
               });
             }
+            function print_rsvr(){
+            	location.href('/loadrsvr');
+            }
         div
         if (lv == 1)
           div(style="height:805px;")
             textarea(rows="20" cols="20", id="notice_col") #{notcon}
-          div 
+            br
             button(onclick="notice_input();") 입력
+          div
+            button(onclick="print_rsvr();") 예약출력
         else
           div(style="height:830px;")
             span(id="notice_con" style="height:300px") #{notcon}
