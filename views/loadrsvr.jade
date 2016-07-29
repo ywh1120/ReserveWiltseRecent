@@ -1,10 +1,14 @@
 extends layout
 
 block content
-  - var vv = #{val}
+  Script.
+    //$(document).ready(function(){
+      //alert("#{val}");
+    //});
+  - var vv = ['1','2','3','4']
   - for(var v in vv)
     div
-      label #{v}
+      label 3
       br
       input(type="text", id="pass",name="pass" placeholder="pass")
       br

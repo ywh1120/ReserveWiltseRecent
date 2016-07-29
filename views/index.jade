@@ -1524,6 +1524,12 @@ block content
               	    $('#alert_box').modal('show');
               	    //window.location.reload(true);
                   }
+                  else if(data == 'dupl'){
+                    $('#err_msg').empty();
+               	    $('#err_msg').append('foot-ankle, elbow는 동일 시간대 예약하실 수 없습니다.');
+              	    $('#alert_box').modal('show');
+              	    //window.location.reload(true);
+                  }
                  },
                 error: function(err){
                   alert('데이터 작성 중 오류가 발생하였습니다.');
@@ -1544,7 +1550,7 @@ block content
               socket.emit('toclient',{msg:'del'});
               alert('삭제 완료되었습니다.');
               
-              window.location.reload(true);
+              //window.location.reload(true);
               }
             },
             error: function(err){
@@ -1653,6 +1659,23 @@ block content
             function print_rsvr(){
             	location.href('/loadrsvr');
             }
+            function checkdupl(self,reserved,chgid){
+                var chBox = document.getElementById(chgid);
+                if(reserved != '예약없음'){
+                  if(self.value == 'Foot-Ankle' && chBox.options[chBox.selectedIndex].value == 'Foot-Ankle'){
+                    $('#err_msg').empty();
+               	    $('#err_msg').append('foot-ankle, elbow는 동일 시간대 예약하실 수 없습니다.');
+              	    $('#alert_box').modal('show');
+              	    self.value = "";
+                  }
+                  if(self.value == 'Elbow' && chBox.options[chBox.selectedIndex].value == 'Elbow'){
+                    $('#err_msg').empty();
+               	    $('#err_msg').append('foot-ankle, elbow는 동일 시간대 예약하실 수 없습니다.');
+              	    $('#alert_box').modal('show');
+              	    self.value = "";
+                  }
+                }
+            }
         div
         if (lv == 1)
           div(style="height:805px;")
@@ -1683,15 +1706,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name1_n0" name="patient_name1_n0")
                 td 
-                  select(id="desc1_n0" name="desc1_n0")
+                  select(id="desc1_n0" name="desc1_n0" onchange="checkdupl(this,'part2_n0','desc2_n0');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part1_n0 예약없음
@@ -1704,15 +1727,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name1_n1" name="patient_name1_n1")
                 td 
-                  select(id="desc1_n1" name="desc1_n1")
+                  select(id="desc1_n1" name="desc1_n1" onchange="checkdupl(this,'part2_n1','desc2_n1');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part1_n1 예약없음
@@ -1725,15 +1748,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name1_n2" name="patient_name1_n2")
                 td 
-                  select(id="desc1_n2" name="desc1_n2")
+                  select(id="desc1_n2" name="desc1_n2" onchange="checkdupl(this,'part2_n2','desc2_n2');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part1_n2 예약없음
@@ -1746,15 +1769,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name1_n3" name="patient_name1_n3")
                 td 
-                  select(id="desc1_n3" name="desc1_n3")
+                  select(id="desc1_n3" name="desc1_n3" onchange="checkdupl(this,'part2_n3','desc2_n3');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part1_n3 예약없음
@@ -1767,15 +1790,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name1_n4" name="patient_name1_n4")
                 td 
-                  select(id="desc1_n4" name="desc1_n4")
+                  select(id="desc1_n4" name="desc1_n4" onchange="checkdupl(this,'part2_n4','desc2_n4');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part1_n4 예약없음
@@ -1788,15 +1811,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name1_n5" name="patient_name1_n5")
                 td 
-                  select(id="desc1_n5" name="desc1_n5")
+                  select(id="desc1_n5" name="desc1_n5" onchange="checkdupl(this,'part2_n5','desc2_n5');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part1_n5 예약없음
@@ -1809,15 +1832,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name1_n6" name="patient_name1_n6")
                 td 
-                  select(id="desc1_n6" name="desc1_n6")
+                  select(id="desc1_n6" name="desc1_n6" onchange="checkdupl(this,'part2_n6','desc2_n6');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part1_n6 예약없음
@@ -1830,15 +1853,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name1_n7" name="patient_name1_n7")
                 td 
-                  select(id="desc1_n7" name="desc1_n7")
+                  select(id="desc1_n7" name="desc1_n7" onchange="checkdupl(this,'part2_n7','desc2_n7');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part1_n7 예약없음
@@ -1851,15 +1874,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name1_n8" name="patient_name1_n8")
                 td 
-                  select(id="desc1_n8" name="desc1_n8")
+                  select(id="desc1_n8" name="desc1_n8" onchange="checkdupl(this,'part2_n8','desc2_n8');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part1_n8 예약없음
@@ -1872,15 +1895,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name1_n9" name="patient_name1_n9")
                 td 
-                  select(id="desc1_n9" name="desc1_n9")
+                  select(id="desc1_n9" name="desc1_n9" onchange="checkdupl(this,'part2_n9','desc2_n9');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part1_n9 예약없음
@@ -1893,15 +1916,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name1_n10" name="patient_name1_n10")
                 td 
-                  select(id="desc1_n10" name="desc1_n10")
+                  select(id="desc1_n10" name="desc1_n10" onchange="checkdupl(this,'part2_n10','desc2_n10');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part1_n10 예약없음
@@ -1914,15 +1937,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name1_n11" name="patient_name1_n11")
                 td 
-                  select(id="desc1_n11" name="desc1_n11")
+                  select(id="desc1_n11" name="desc1_n11" onchange="checkdupl(this,'part2_n11','desc2_n11');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part1_n11 예약없음
@@ -1935,15 +1958,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name1_n12" name="patient_name1_n12")
                 td 
-                  select(id="desc1_n12" name="desc1_n12")
+                  select(id="desc1_n12" name="desc1_n12" onchange="checkdupl(this,'part2_n12','desc2_n12');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part1_n12 예약없음
@@ -1956,15 +1979,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name1_n13" name="patient_name1_n13")
                 td 
-                  select(id="desc1_n13" name="desc1_n13")
+                  select(id="desc1_n13" name="desc1_n13" onchange="checkdupl(this,'part2_n13','desc2_n13');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part1_n13 예약없음
@@ -1977,15 +2000,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name1_n14" name="patient_name1_n14")
                 td 
-                  select(id="desc1_n14" name="desc1_n14")
+                  select(id="desc1_n14" name="desc1_n14" onchange="checkdupl(this,'part2_n14','desc2_n14');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part1_n14 예약없음
@@ -1998,15 +2021,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name1_n15" name="patient_name1_n15")
                 td 
-                  select(id="desc1_n15" name="desc1_n15")
+                  select(id="desc1_n15" name="desc1_n15" onchange="checkdupl(this,'part2_n15','desc2_n15');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part1_n15 예약없음
@@ -2019,15 +2042,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name1_n16" name="patient_name1_n16")
                 td 
-                  select(id="desc1_n16" name="desc1_n16")
+                  select(id="desc1_n16" name="desc1_n16" onchange="checkdupl(this,'part2_n16','desc2_n16');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part1_n16 예약없음
@@ -2053,15 +2076,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name2_n0" name="patient_name2_n0")
                 td 
-                  select(id="desc2_n0" name="desc2_n0")
+                  select(id="desc2_n0" name="desc2_n0" onchange="checkdupl(this,'part1_n0','desc1_n0');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part2_n0 예약없음
@@ -2074,15 +2097,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name2_n1" name="patient_name2_n1")
                 td 
-                  select(id="desc2_n1" name="desc2_n1")
+                  select(id="desc2_n1" name="desc2_n1" onchange="checkdupl(this,'part1_n1','desc1_n1');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part2_n1 예약없음
@@ -2095,15 +2118,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name2_n2" name="patient_name2_n2")
                 td 
-                  select(id="desc2_n2" name="desc2_n2")
+                  select(id="desc2_n2" name="desc2_n2" onchange="checkdupl(this,'part1_n2','desc1_n2');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part2_n2 예약없음
@@ -2116,15 +2139,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name2_n3" name="patient_name2_n3")
                 td 
-                  select(id="desc2_n3" name="desc2_n3")
+                  select(id="desc2_n3" name="desc2_n3" onchange="checkdupl(this,'part1_n3','desc1_n3');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part2_n3 예약없음
@@ -2137,15 +2160,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name2_n4" name="patient_name2_n4")
                 td 
-                  select(id="desc2_n4" name="desc2_n4")
+                  select(id="desc2_n4" name="desc2_n4" onchange="checkdupl(this,'part1_n4','desc1_n4');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part2_n4 예약없음
@@ -2158,15 +2181,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name2_n5" name="patient_name2_n5")
                 td 
-                  select(id="desc2_n5" name="desc2_n5")
+                  select(id="desc2_n5" name="desc2_n5" onchange="checkdupl(this,'part1_n5','desc1_n5');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part2_n5 예약없음
@@ -2179,15 +2202,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name2_n6" name="patient_name2_n6")
                 td 
-                  select(id="desc2_n6" name="desc2_n6")
+                  select(id="desc2_n6" name="desc2_n6" onchange="checkdupl(this,'part1_n6','desc1_n6');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part2_n6 예약없음
@@ -2200,15 +2223,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name2_n7" name="patient_name2_n7")
                 td 
-                  select(id="desc2_n7" name="desc2_n7")
+                  select(id="desc2_n7" name="desc2_n7" onchange="checkdupl(this,'part1_n7','desc1_n7');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part2_n7 예약없음
@@ -2221,15 +2244,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name2_n8" name="patient_name2_n8")
                 td 
-                  select(id="desc2_n8" name="desc2_n8")
+                  select(id="desc2_n8" name="desc2_n8" onchange="checkdupl(this,'part1_n8','desc1_n8');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part2_n8 예약없음
@@ -2242,15 +2265,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name2_n9" name="patient_name2_n9")
                 td 
-                  select(id="desc2_n9" name="desc2_n9")
+                  select(id="desc2_n9" name="desc2_n9" onchange="checkdupl(this,'part1_n9','desc1_n9');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part2_n9 예약없음
@@ -2263,15 +2286,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name2_n10" name="patient_name2_n10")
                 td 
-                  select(id="desc2_n10" name="desc2_n10")
+                  select(id="desc2_n10" name="desc2_n10" onchange="checkdupl(this,'part1_n10','desc1_n10');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part2_n10 예약없음
@@ -2284,15 +2307,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name2_n11" name="patient_name2_n11")
                 td 
-                  select(id="desc2_n11" name="desc2_n11")
+                  select(id="desc2_n11" name="desc2_n11" onchange="checkdupl(this,'part1_n11','desc1_n11');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part2_n11 예약없음
@@ -2305,15 +2328,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name2_n12" name="patient_name2_n12")
                 td 
-                  select(id="desc2_n12" name="desc2_n12")
+                  select(id="desc2_n12" name="desc2_n12" onchange="checkdupl(this,'part1_n12','desc1_n12');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part2_n12 예약없음
@@ -2326,15 +2349,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name2_n13" name="patient_name2_n13")
                 td 
-                  select(id="desc2_n13" name="desc2_n13")
+                  select(id="desc2_n13" name="desc2_n13" onchange="checkdupl(this,'part1_n13','desc1_n13');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part2_n13 예약없음
@@ -2347,15 +2370,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name2_n14" name="patient_name2_n14")
                 td 
-                  select(id="desc2_n14" name="desc2_n14")
+                  select(id="desc2_n14" name="desc2_n14" onchange="checkdupl(this,'part1_n14','desc1_n14');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part2_n14 예약없음
@@ -2368,15 +2391,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name2_n15" name="patient_name2_n15")
                 td 
-                  select(id="desc2_n15" name="desc2_n15")
+                  select(id="desc2_n15" name="desc2_n15" onchange="checkdupl(this,'part1_n15','desc1_n15');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part2_n15 예약없음
@@ -2389,15 +2412,15 @@ block content
                 td 
                   input(type="text" style="width:50px" id="patient_name2_n16" name="patient_name2_n16")
                 td 
-                  select(id="desc2_n16" name="desc2_n16")
+                  select(id="desc2_n16" name="desc2_n16" onchange="checkdupl(this,'part1_n16','desc1_n16');")
                     option(value="") None
                     option(value="LSP") LSP
                     option(value="CSP") CSP
                     option(value="TLSP") TLSP
-                    option(value="Sho.Rt") Sho.Rt
-                    option(value="Sho.Lt") Sho.Lt
-                    option(value="Knee.R") Knee.R
-                    option(value="Knee.L") Knee.L
+                    option(value="Shoulder") Shoulder
+                    option(value="Knee") Knee
+                    option(value="Foot-Ankle") Foot-Ankle
+                    option(value="Elbow") Elbow
                     option(value="Other") Other
                 td 
                   label#part2_n16 예약없음

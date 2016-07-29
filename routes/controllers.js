@@ -433,7 +433,38 @@ exports.reservate=function(req,res){
 				}
 			}
 		}
-		if(flag){
+		function retrievedupl(req, callback) {
+			Reserve.findOne({"time":req.body.time, "date":req.body.resdate,"description":req.body.description}).select('description').exec(function(err,val){
+				if(err){
+		    		//console.err(err);
+					callback(err, null);
+		    	}
+				//console.log(val);
+				callback(null, val);		
+			});
+		};
+		var dupval = 0;
+		var vv = {};
+		//if(req.body.description == "Foot-Ankle" || req.body.description == "Elbow"){
+			//retrievedupl(req, function(err,val){
+				//if(err){
+					//console.log(err);
+				//}
+				/*else if(val['description'] == 'Foot-Ankle' || val['description'] == 'Elbow'){
+					dupval = 1;
+				}*/
+				//vv = val;
+				//console.log(val);
+				//console.log(vv);
+		    //});
+		//}
+		//if(vv){
+			//console.log(vv);
+			//if(vv['description']!=null){
+				//dupval += 1;
+			//}
+		//}
+		if(flag == true){
 			var d = new Date();
 			/*var reserve = new Reserve({
 				"date" : req.body.resdate,
@@ -492,7 +523,7 @@ exports.reservate=function(req,res){
 		    		*/
 		    	
 		    });
-		}else{
+		}else if(flag == false){
 			res.send('timeout');
 		}
 	
