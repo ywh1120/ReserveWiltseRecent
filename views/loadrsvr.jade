@@ -1,17 +1,21 @@
 extends layout
 
-block content
-  Script.
-    //$(document).ready(function(){
-      //alert("#{val}");
-    //});
-  - var vv = ['1','2','3','4']
-  - for(var v in vv)
-    div
-      label 3
-      br
-      input(type="text", id="pass",name="pass" placeholder="pass")
-      br
-      input(type="text", id="lv",name="lv",placeholder="lv")
-      br
-      button(type="button" onclick="signup()") submit
+block content 
+  table(style="border:1px gray solid")
+    thead
+      tr
+        th(style="width:80px;text-align:center") Date
+        th(style="border:1px gray solid;width:60px;text-align:center") Time
+        th(style="border:1px gray solid;width:80px;text-align:center") No.
+        th(style="border:1px gray solid;width:80px;text-align:center") Name
+        th(style="border:1px gray solid;width:100px;text-align:center") Description
+        th(style="border:1px gray solid;width:80px;text-align:center") part
+    tbody
+    each v in val
+      tr
+        td(style="border:1px gray solid;text-align:center") #{v.date}
+        td(style="border:1px gray solid;text-align:center") #{v.time}
+        td(style="border:1px gray solid;text-align:center") #{v.patient_number}  
+        td(style="border:1px gray solid;text-align:center") #{v.patient_name}
+        td(style="border:1px gray solid;text-align:center") #{v.description}
+        td(style="border:1px gray solid;text-align:center") #{v.reservid}

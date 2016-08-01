@@ -587,12 +587,12 @@ exports.noticeload=function(req,res){
 };
 exports.loadrsvr=function(req,res){
 	//Reserve.find({"date" : {$gt:getTimeStamp()}}).exec(function(err,val){
-	Reserve.find({"date" : getTimeStamp()}).exec(function(err,val){
+	Reserve.find({"date" : {$gt:getTimeStamp()}}).exec(function(err,val){
 		if(err){
 			console.err(err);
 			throw err;
-		}else{
-			res.render('loadrsvr', { 'val':val});
 		}
+		res.render('loadrsvr', { 'val':val});
+		
 	});
 };
