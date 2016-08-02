@@ -1472,6 +1472,26 @@ block content
                    }
                  }
             }
+            function leadingZeros(n, digits) {
+              var zero = '';
+              n = n.toString();
+              
+              if (n.length < digits) {
+                for (i = 0; i < digits - n.length; i++)
+                zero += '0';
+              }
+              return zero + n;
+            }
+            function getTimeStamp() {
+              var d = new Date();
+              var s =
+              leadingZeros(d.getFullYear(), 4) + '/' +
+              leadingZeros(d.getMonth() + 1, 2) + '/' +
+              leadingZeros(d.getDate(), 2)
+              
+              return s;
+            }
+
             function reserve(time, p_num, p_name, desc, part, mrinum){
               if("#{user_id}" == ""){
                   $('#err_msg').empty();
@@ -1479,11 +1499,13 @@ block content
                   $('#alert_box').modal('show');
                   return false;
               }
-              if(p_num == ""){
-                 $('#err_msg').empty();
-                 $('#err_msg').append('환자번호를 입력해주세요.');
-                 $('#alert_box').modal('show');
-                 return false;
+              if(getTimeStamp() != $('#datetimepicker12').data('date')){
+                if(p_num == ""){
+                   $('#err_msg').empty();
+                   $('#err_msg').append('환자번호를 입력해주세요.');
+                   $('#alert_box').modal('show');
+                   return false;
+                }
               }
               if(p_name == ""){
                  $('#err_msg').empty();
