@@ -587,7 +587,7 @@ exports.noticeload=function(req,res){
 };
 exports.loadrsvr=function(req,res){
 	//Reserve.find({"date" : {$gt:getTimeStamp()}}).exec(function(err,val){
-	Reserve.find({"date" : {$gt:getTimeStamp()}}).exec(function(err,val){
+	Reserve.find({"date" : {$gt:getTimeStamp()}}).sort({"date":"asc"}).exec(function(err,val){
 		if(err){
 			console.err(err);
 			throw err;
